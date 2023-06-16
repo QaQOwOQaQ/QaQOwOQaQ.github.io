@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"qaqowoqaq.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="HashMap0. 题目地址设计哈希映射 1. 链地址法1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768class MyHashMap &amp;#123;    class Node&amp;#123;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hashtable">
+<meta property="og:url" content="https://qaqowoqaq.github.io/2023/06/15/HashMap/index.html">
+<meta property="og:site_name" content="jyyyyyx">
+<meta property="og:description" content="HashMap0. 题目地址设计哈希映射 1. 链地址法1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768class MyHashMap &amp;#123;    class Node&amp;#123;">
+<meta property="og:locale">
+<meta property="article:published_time" content="2023-06-15T12:20:57.000Z">
+<meta property="article:modified_time" content="2023-06-16T02:06:57.966Z">
+<meta property="article:author" content="jyyyx">
+<meta property="article:tag" content="cs">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://qaqowoqaq.github.io/2023/06/15/HashMap/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'cn'
+  };
+</script>
+
+  <title>Hashtable | jyyyyyx</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">jyyyyyx</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">think twice before you do it</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="cn">
+    <link itemprop="mainEntityOfPage" href="https://qaqowoqaq.github.io/2023/06/15/HashMap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="jyyyx">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jyyyyyx">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Hashtable
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-06-15 20:20:57" itemprop="dateCreated datePublished" datetime="2023-06-15T20:20:57+08:00">2023-06-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-06-16 10:06:57" itemprop="dateModified" datetime="2023-06-16T10:06:57+08:00">2023-06-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h1><h2 id="0-题目地址"><a href="#0-题目地址" class="headerlink" title="0. 题目地址"></a>0. 题目地址</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/design-hashmap/solution/she-ji-ha-xi-ying-she-by-leetcode-soluti-klu9/">设计哈希映射</a></p>
+<h2 id="1-链地址法"><a href="#1-链地址法" class="headerlink" title="1. 链地址法"></a>1. 链地址法</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyHashMap</span> &#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">Node</span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="type">int</span> key;</span><br><span class="line">        <span class="keyword">private</span> <span class="type">int</span> value;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">(<span class="type">int</span> key,<span class="type">int</span> value)</span></span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.key = key;</span><br><span class="line">            <span class="keyword">this</span>.value = value;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> List&lt;Node&gt;[] map;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">static</span> <span class="keyword">final</span> <span class="type">int</span> capacity = <span class="number">857</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyHashMap</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        map = <span class="keyword">new</span> LinkedList[capacity];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="type">int</span> <span class="title">hash</span><span class="params">(<span class="type">int</span> key)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> key % capacity;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="type">void</span> <span class="title">put</span><span class="params">(<span class="type">int</span> key, <span class="type">int</span> value)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> myHashCode = <span class="built_in">hash</span>(key);</span><br><span class="line">        <span class="keyword">if</span>(map[myHashCode] == null)&#123;</span><br><span class="line">            List&lt;Node&gt; list = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">            list.<span class="built_in">add</span>(<span class="keyword">new</span> <span class="built_in">Node</span>(key,value));</span><br><span class="line">            map[myHashCode] = list;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            List&lt;Node&gt; list = map[myHashCode];</span><br><span class="line">            <span class="keyword">for</span>(Node m : list)&#123;</span><br><span class="line">                <span class="keyword">if</span>(m.key == key)&#123;</span><br><span class="line">                    m.value = value;</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            list.<span class="built_in">add</span>(<span class="keyword">new</span> <span class="built_in">Node</span>(key,value));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="type">int</span> <span class="title">get</span><span class="params">(<span class="type">int</span> key)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> myHashCode = <span class="built_in">hash</span>(key);</span><br><span class="line">        <span class="keyword">if</span>(map[myHashCode] == null)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        List&lt;Node&gt; list = map[myHashCode];</span><br><span class="line">        <span class="type">int</span> res = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">for</span>(Node m : list)&#123;</span><br><span class="line">            <span class="keyword">if</span>(m.key == key)&#123;</span><br><span class="line">                res = m.value;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="type">void</span> <span class="title">remove</span><span class="params">(<span class="type">int</span> key)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> myHashCode = <span class="built_in">hash</span>(key);</span><br><span class="line">        <span class="keyword">if</span>(map[myHashCode] == null)&#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        List&lt;Node&gt; list = map[myHashCode];</span><br><span class="line">        <span class="keyword">for</span>(Node m : list)&#123;</span><br><span class="line">            <span class="keyword">if</span>(m.key == key)&#123;</span><br><span class="line">                list.<span class="built_in">remove</span>(m);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-开放寻址法"><a href="#2-开放寻址法" class="headerlink" title="2. 开放寻址法"></a>2. 开放寻址法</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyHashMap</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">static</span> <span class="keyword">class</span> <span class="title class_">HashEntry</span> &#123;</span><br><span class="line">        <span class="type">int</span> key;</span><br><span class="line">        <span class="type">int</span> value;</span><br><span class="line">        boolean remove; <span class="comment">// 记录元素是否被删除。</span></span><br><span class="line"></span><br><span class="line">        <span class="built_in">HashEntry</span>(<span class="type">int</span> key, <span class="type">int</span> value) &#123;</span><br><span class="line">            <span class="keyword">this</span>.key = key;</span><br><span class="line">            <span class="keyword">this</span>.value = value;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> HashEntry[] table = <span class="keyword">new</span> HashEntry[<span class="number">101</span>]; <span class="comment">// 保存哈希表中的数据</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> size = <span class="number">0</span>; <span class="comment">// 哈希表中元素的数量。</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="type">void</span> <span class="title">put</span><span class="params">(<span class="type">int</span> key, <span class="type">int</span> value)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> index = <span class="built_in">index</span>(key, table);</span><br><span class="line">        <span class="keyword">if</span> (table[index] != null &amp;&amp; !table[index].remove) &#123;</span><br><span class="line">            table[index].value = value; <span class="comment">// 哈希表中已存在该元素。</span></span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        table[index] = <span class="keyword">new</span> <span class="built_in">HashEntry</span>(key, value); <span class="comment">// 哈希表中不存在该元素。</span></span><br><span class="line">        <span class="keyword">if</span> (++size &gt;= table.length &gt;&gt; <span class="number">1</span>) <span class="built_in">resize</span>(); <span class="comment">// 元素数量超过数组的一半则进行扩容。</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="type">int</span> <span class="title">get</span><span class="params">(<span class="type">int</span> key)</span> </span>&#123;</span><br><span class="line">        HashEntry entry = table[<span class="built_in">index</span>(key, table)];</span><br><span class="line">        <span class="keyword">return</span> entry == null || entry.remove ? <span class="number">-1</span> : entry.value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="type">void</span> <span class="title">remove</span><span class="params">(<span class="type">int</span> key)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> index = <span class="built_in">index</span>(key, table);</span><br><span class="line">        <span class="keyword">if</span> (table[index] == null || table[index].remove)</span><br><span class="line">            <span class="keyword">return</span>; <span class="comment">// 哈希表中不存在该元素或该元素已被删除则直接返回。</span></span><br><span class="line">        table[index].remove = <span class="literal">true</span>; <span class="comment">// 将元素标记为已删除。</span></span><br><span class="line">        size--;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="type">int</span> <span class="title">index</span><span class="params">(<span class="type">int</span> key, HashEntry[] table)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> index = (index = key % table.length) &lt; <span class="number">0</span> ? index + table.length : index;</span><br><span class="line">        <span class="keyword">while</span> (table[index] != null &amp;&amp; table[index].key != key)</span><br><span class="line">            <span class="keyword">if</span> (++index &gt;= table.length)</span><br><span class="line">                index -= table.length;</span><br><span class="line">        <span class="keyword">return</span> index;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 判断一个数是否为一个质数。</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> boolean <span class="title">isPrime</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (n == <span class="number">2</span> || n == <span class="number">3</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">if</span> (n == <span class="number">1</span> || (n &amp; <span class="number">1</span>) == <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">3</span>; i * i &lt;= n; i += <span class="number">2</span>)</span><br><span class="line">            <span class="keyword">if</span> (n % i == <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 对哈希表进行扩容。</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="type">void</span> <span class="title">resize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        HashEntry[] oldTable = table; <span class="comment">// 原来的数据。</span></span><br><span class="line">        <span class="comment">// 新数组的容量为原来容量的两倍。</span></span><br><span class="line">        HashEntry[] newTable = <span class="keyword">new</span> HashEntry[<span class="built_in">tableSizeFor</span>(oldTable.length &lt;&lt; <span class="number">1</span>)];</span><br><span class="line">        <span class="keyword">for</span> (HashEntry entry : oldTable) <span class="comment">// 将原数组中的元素复制到新数组中。</span></span><br><span class="line">            <span class="keyword">if</span> (entry != null &amp;&amp; !entry.remove) <span class="comment">// 已删除的元素不搬移到新数组中。</span></span><br><span class="line">                newTable[<span class="built_in">index</span>(entry.key, newTable)] = entry;</span><br><span class="line">        table = newTable;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 保证哈希表的容量是一个质数。</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="type">int</span> <span class="title">tableSizeFor</span><span class="params">(<span class="type">int</span> capacity)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> ((capacity &amp; <span class="number">1</span>) == <span class="number">0</span>) capacity++;</span><br><span class="line">        <span class="keyword">while</span> (<span class="built_in">isPrime</span>(capacity)) capacity += <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">return</span> capacity;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-AV二叉树"><a href="#3-AV二叉树" class="headerlink" title="3. AV二叉树"></a>3. AV二叉树</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyHashMap</span> &#123;</span><br><span class="line">	<span class="keyword">private</span> ***LTree ***lTree;</span><br><span class="line">	<span class="keyword">private</span> NewNode node = null;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">MyHashMap</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		***lTree = <span class="keyword">new</span> ***<span class="built_in">LTree</span>();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="type">void</span> <span class="title">put</span><span class="params">(<span class="type">int</span> key, <span class="type">int</span> value)</span> </span>&#123;</span><br><span class="line">		node = ***lTree.<span class="built_in">insert</span>(node, key, value);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="type">int</span> <span class="title">get</span><span class="params">(<span class="type">int</span> key)</span> </span>&#123;</span><br><span class="line">		NewNode nn = ***lTree.get***<span class="built_in">LTree</span>(key,node);</span><br><span class="line">		<span class="keyword">if</span>(nn!=null)&#123;</span><br><span class="line">			<span class="keyword">return</span> nn.val;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;<span class="comment">//不存在，返回-1</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="type">void</span> <span class="title">remove</span><span class="params">(<span class="type">int</span> key)</span> </span>&#123;</span><br><span class="line">		node = ***lTree.<span class="built_in">deleteNode</span>(node, key);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">NewNode</span> &#123;</span><br><span class="line">	<span class="type">int</span> val;</span><br><span class="line">	<span class="type">int</span> key;</span><br><span class="line">	NewNode left;</span><br><span class="line">	NewNode right;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 节点高度,高度是指节点到一片树叶的最长路径的长</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="type">int</span> height;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">NewNode</span><span class="params">(<span class="type">int</span> key,<span class="type">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.val = val;</span><br><span class="line">        <span class="keyword">this</span>.key = key;</span><br><span class="line">        height = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> ***LTree &#123;</span><br><span class="line">    <span class="keyword">public</span> NewNode root;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 计算***L节点的高度的方法</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="type">int</span> <span class="title">height</span><span class="params">(NewNode NewNode)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//如果为空，返回height为0</span></span><br><span class="line">        <span class="keyword">return</span> NewNode == null ? <span class="number">0</span> : NewNode.height;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 计算两个的最大值</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="type">int</span> <span class="title">max</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a &gt; b ? a : b;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 右旋转</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">NewNode <span class="title">rightRotate</span><span class="params">(NewNode y)</span> </span>&#123;</span><br><span class="line">        NewNode x = y.left;</span><br><span class="line">        NewNode T1 = x.right;</span><br><span class="line">        x.right = y;</span><br><span class="line">        y.left = T1;</span><br><span class="line">        <span class="comment">//更新高度</span></span><br><span class="line">        y.height = <span class="built_in">max</span>(<span class="built_in">height</span>(y.left), <span class="built_in">height</span>(y.right)) + <span class="number">1</span>;</span><br><span class="line">        x.height = <span class="built_in">max</span>(<span class="built_in">height</span>(x.left), <span class="built_in">height</span>(x.right)) + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 左旋转</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">NewNode <span class="title">leftRotate</span><span class="params">(NewNode x)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        NewNode y = x.right;</span><br><span class="line">        NewNode T2 = y.left;</span><br><span class="line">        y.left = x;</span><br><span class="line">        x.right = T2;</span><br><span class="line">        <span class="comment">//更新高度</span></span><br><span class="line">        x.height = <span class="built_in">max</span>(<span class="built_in">height</span>(x.left), <span class="built_in">height</span>(x.right)) + <span class="number">1</span>;</span><br><span class="line">        y.height = <span class="built_in">max</span>(<span class="built_in">height</span>(y.left), <span class="built_in">height</span>(y.right)) + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> y;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *  获取平衡因子</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">getBalance</span><span class="params">(NewNode NewNode)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> NewNode == null ? <span class="number">0</span> : (<span class="built_in">height</span>(NewNode.left) - <span class="built_in">height</span>(NewNode.right));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 插入操作</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">NewNode <span class="title">insert</span><span class="params">(NewNode NewNode,<span class="type">int</span> key, <span class="type">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (NewNode == null) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">NewNode</span>(key,val);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (key &lt; NewNode.key) &#123;</span><br><span class="line">            NewNode.left = <span class="built_in">insert</span>(NewNode.left, key,val);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (key &gt; NewNode.key) &#123;</span><br><span class="line">            NewNode.right = <span class="built_in">insert</span>(NewNode.right, key,val);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        	NewNode.val = val;</span><br><span class="line">            <span class="keyword">return</span> NewNode;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//更新节点高度</span></span><br><span class="line">        NewNode.height = <span class="number">1</span> + <span class="built_in">max</span>(<span class="built_in">height</span>(NewNode.left), <span class="built_in">height</span>(NewNode.right));</span><br><span class="line">        <span class="comment">//这是插入完毕后的</span></span><br><span class="line">        <span class="type">int</span> balance = <span class="built_in">getBalance</span>(NewNode);</span><br><span class="line">        <span class="keyword">if</span> (balance &gt; <span class="number">1</span> &amp;&amp; key &lt; NewNode.left.key) &#123;</span><br><span class="line">            <span class="comment">//右旋</span></span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">rightRotate</span>(NewNode);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (balance &lt; <span class="number">-1</span> &amp;&amp; key &gt; NewNode.right.key) &#123;</span><br><span class="line">            <span class="comment">//左旋</span></span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">leftRotate</span>(NewNode);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (balance &gt; <span class="number">1</span> &amp;&amp; key &gt; NewNode.left.key) &#123;</span><br><span class="line">            <span class="comment">//先左旋，再右旋</span></span><br><span class="line">            NewNode.left = <span class="built_in">leftRotate</span>(NewNode.left);</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">rightRotate</span>(NewNode);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (balance &lt; <span class="number">-1</span> &amp;&amp; key &lt; NewNode.right.key) &#123;</span><br><span class="line">            <span class="comment">//先右旋再左旋</span></span><br><span class="line">            NewNode.right = <span class="built_in">rightRotate</span>(NewNode.right);</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">leftRotate</span>(NewNode);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> NewNode;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取值</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">NewNode get***<span class="title">LTree</span><span class="params">(<span class="type">int</span> key,NewNode node)</span></span>&#123;</span><br><span class="line">    	<span class="keyword">if</span>(node==null) <span class="keyword">return</span> null;</span><br><span class="line">		<span class="keyword">if</span>(key&gt;node.key)&#123;</span><br><span class="line">			node = get***<span class="built_in">LTree</span>(key,node.right);</span><br><span class="line">	    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(key&lt;node.key)&#123;</span><br><span class="line">	    	node = get***<span class="built_in">LTree</span>(key,node.left);</span><br><span class="line">	    &#125;</span><br><span class="line">		<span class="keyword">if</span>(node!=null&amp;&amp;key==node.key) <span class="keyword">return</span> node;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">return</span> null;</span><br><span class="line">	&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 删除值</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">NewNode <span class="title">deleteNode</span><span class="params">(NewNode root, <span class="type">int</span> key)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root == null) &#123;</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (key &lt; root.key) &#123;</span><br><span class="line">            root.left = <span class="built_in">deleteNode</span>(root.left, key);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (key &gt; root.key) &#123;</span><br><span class="line">            root.right = <span class="built_in">deleteNode</span>(root.right, key);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">//删除节点有两个孩子</span></span><br><span class="line">            <span class="keyword">if</span> (root.left != null &amp;&amp; root.right != null) &#123;</span><br><span class="line">                root.val = <span class="built_in">findMin</span>(root.right).val;</span><br><span class="line">                root.key = <span class="built_in">findMin</span>(root.right).key;</span><br><span class="line">                root.right = <span class="built_in">deleteNode</span>(root.right, root.key);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">//删除节点只有一个孩子或者没有孩子</span></span><br><span class="line">                root = (root.left != null) ? root.left : root.right;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//以下操作是为了恢复***L树的平衡性</span></span><br><span class="line">        <span class="keyword">if</span> (root == null) &#123;</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        &#125;</span><br><span class="line">        root.height = <span class="built_in">max</span>(<span class="built_in">height</span>(root.left), <span class="built_in">height</span>(root.right)) + <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> balance = <span class="built_in">getBalance</span>(root);</span><br><span class="line">        <span class="comment">//左-左情况，这里使用&gt;=而不是&gt;就是为了保证这些情形下使用的是单旋转而不是双旋转</span></span><br><span class="line">        <span class="keyword">if</span> (balance &gt; <span class="number">1</span> &amp;&amp; <span class="built_in">getBalance</span>(root.left) &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">rightRotate</span>(root);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//左-右情况</span></span><br><span class="line">        <span class="keyword">if</span> (balance &gt; <span class="number">1</span> &amp;&amp; <span class="built_in">getBalance</span>(root.left) &lt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            root.left = <span class="built_in">leftRotate</span>(root.left);</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">rightRotate</span>(root);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//右-右情况</span></span><br><span class="line">        <span class="keyword">if</span> (balance &lt; <span class="number">-1</span> &amp;&amp; <span class="built_in">getBalance</span>(root.right) &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">leftRotate</span>(root);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//右-左情况</span></span><br><span class="line">        <span class="keyword">if</span> (balance &lt; <span class="number">-1</span> &amp;&amp; <span class="built_in">getBalance</span>(root.right) &gt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            root.right = <span class="built_in">rightRotate</span>(root.right);</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">leftRotate</span>(root);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> NewNode <span class="title">findMin</span><span class="params">(NewNode root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root.left == null) &#123;</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">findMin</span>(root.left);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="4-红黑树"><a href="#4-红黑树" class="headerlink" title="4. 红黑树"></a>4. 红黑树</h2><pre><code class="c++">class MyHashMap &#123;
+    private static class TreeNode &#123;
+        private int key;
+        private int value;
+        private boolean color;
+        private TreeNode left;
+        private TreeNode right;
+        private TreeNode parent;
+
+        private TreeNode(int key, int value) &#123;
+            this.key = key;
+            this.value = value;
+        &#125;
+    &#125;
+
+    private static final boolean RED = false;
+    private static final boolean BLACK = true;
+    private TreeNode[] hashtable = new TreeNode[1024];
+    private int currentSize;
+
+    public void put(int key, int value) &#123;
+        if (currentSize &gt;= hashtable.length) &#123;
+            resize(); // 从结果来看，加载因子选 1.0 效率较高。
+        &#125;
+        int index = key &amp; (hashtable.length - 1);
+        insert(index, new TreeNode(key, value));
+    &#125;
+
+    public int get(int key) &#123;
+        int index = key &amp; (hashtable.length - 1);
+        TreeNode node = getNode(index, key);
+        return node == null ? -1 : node.value;
+    &#125;
+
+    public void remove(int key) &#123;
+        int index = key &amp; (hashtable.length - 1);
+        delete(index, key);
+    &#125;
+
+    // 对哈希表进行扩容。
+    private void resize() &#123;
+        TreeNode[] oldTable = hashtable;
+        hashtable = new TreeNode[hashtable.length &lt;&lt; 1];
+        for (TreeNode root : oldTable) &#123;
+            postorderTraversal(root);
+        &#125;
+        currentSize &gt;&gt;= 1;
+    &#125;
+
+    // 获取指定位置上的指定结点。
+    private TreeNode getNode(int index, int key) &#123;
+        TreeNode current = hashtable[index];
+        while (current != null) &#123;
+            if (current.key == key) &#123;
+                break;
+            &#125;
+            if (current.key &lt; key) &#123;
+                current = current.right;
+            &#125; else &#123;
+                current = current.left;
+            &#125;
+        &#125;
+        return current;
+    &#125;
+
+    // 在指定位置上插入结点。
+    private void insert(int index, TreeNode insert) &#123;
+        TreeNode current = hashtable[index], parent = null; // 分别保存当前结点及其父结点。
+        while (current != null) &#123;
+            parent = current;
+            if (current.key == insert.key) &#123;
+                current.value = insert.value;
+                return;
+            &#125;
+            if (current.key &lt; insert.key) &#123;
+                current = current.right;
+            &#125; else &#123;
+                current = current.left;
+            &#125;
+        &#125;
+        insert.parent = parent;
+        if (parent == null) &#123;
+            hashtable[index] = insert;
+        &#125; else if (parent.key &lt; insert.key) &#123;
+            parent.right = insert;
+        &#125; else &#123;
+            parent.left = insert;
+        &#125;
+        currentSize++;
+        fixAfterInsertion(index, insert);
+    &#125;
+
+    // 删除指定位置上的指定结点。
+    private void delete(int index, int key) &#123;
+        TreeNode delete = getNode(index, key);
+        if (delete == null) &#123;
+            return;
+        &#125;
+        if (delete.left != null &amp;&amp; delete.right != null) &#123;
+            TreeNode successor = delete.right;
+            while (successor.left != null) &#123;
+                successor = successor.left;
+            &#125;
+            delete.key = successor.key;
+            delete.value = successor.value;
+            delete = successor;
+        &#125;
+        TreeNode replacement = delete.left == null ? delete.right : delete.left;
+        if (replacement == null) &#123;
+            fixAfterDeletion(index, delete);
+            if (delete.parent == null) &#123;
+                hashtable[index] = null;
+            &#125; else if (delete.parent.left == delete) &#123;
+                delete.parent.left = null;
+            &#125; else &#123;
+                delete.parent.right = null;
+            &#125;
+        &#125; else &#123; // 被删除的结点只有一个子结点，那它一定是黑色结点，且它的子结点为红色。
+            replacement.parent = delete.parent;
+            if (delete.parent == null) &#123;
+                hashtable[index] = replacement;
+            &#125; else if (delete.parent.left == delete) &#123;
+                delete.parent.left = replacement;
+            &#125; else &#123;
+                delete.parent.right = replacement;
+            &#125;
+            replacement.color = BLACK;
+        &#125;
+        currentSize--;
+    &#125;
+
+    // 对插入后的结点进行调整。
+    private void fixAfterInsertion(int index, TreeNode insert) &#123;
+        while (colorOf(insert.parent) == RED) &#123; // 只有父结点是红色才进行处理。
+            // 分别保存当前结点的父结点、叔父结点、祖父结点。
+            TreeNode parent = insert.parent, uncle = sibling(parent), grand = parent.parent;
+            grand.color = RED; // 不管是哪种情况，祖父结点都需要染成红色。
+            if (colorOf(uncle) == BLACK) &#123; // 叔父结点为黑色。
+                if (grand.left == parent) &#123;
+                    if (parent.right == insert) &#123;
+                        rotationLeft(index, parent); // LR 情况：先对父结点进行左旋转。
+                        parent = insert;
+                    &#125;
+                    rotationRight(index, grand); // LL 情况：对祖父结点进行右旋转。
+                &#125; else &#123;
+                    if (parent.left == insert) &#123;
+                        rotationRight(index, parent); // RL 情况：先对父结点进行右旋转。
+                        parent = insert;
+                    &#125;
+                    rotationLeft(index, grand); // RR 情况：对祖父结点进行左旋转。
+                &#125;
+                parent.color = BLACK; // 将旋转后的中心结点染成黑色。
+                insert = hashtable[index]; // 处理完直接退出循环。
+            &#125; else &#123; // 叔父结点为红色，则将父结点与叔父结点都染成黑色，将祖父结点作为新插入的结点继续处理。
+                uncle.color = BLACK;
+                parent.color = BLACK;
+                insert = grand;
+            &#125;
+        &#125;
+        hashtable[index].color = BLACK; // 根结点必须是黑色。
+    &#125;
+
+    // 对删除后的结点进行调整。
+    private void fixAfterDeletion(int index, TreeNode delete) &#123;
+        while (delete.parent != null &amp;&amp; delete.color == BLACK) &#123; // 只有删除的是黑色结点才进行处理。
+            // 分别保存当前结点的父结点、兄弟结点。
+            TreeNode parent = delete.parent, sibling = sibling(delete);
+            if (sibling.color == BLACK) &#123; // 兄弟结点是黑色。
+                if (colorOf(sibling.left) == BLACK &amp;&amp; colorOf(sibling.right) == BLACK) &#123; // 兄弟结点没有红色子结点。
+                    if (parent.color == BLACK) &#123;
+                        delete = parent;
+                    &#125;
+                    parent.color = BLACK;
+                    sibling.color = RED;
+                &#125; else &#123; // 兄弟结点有红色子结点。
+                    if (parent.left == sibling) &#123;
+                        if (colorOf(sibling.left) == BLACK) &#123;
+                            rotationLeft(index, sibling); // LR 情况：先对兄弟结点进行左旋转。
+                            sibling = sibling.parent;
+                        &#125;
+                        rotationRight(index, parent); // LL 情况：对父结点进行右旋转。
+                    &#125; else &#123;
+                        if (colorOf(sibling.right) == BLACK) &#123;
+                            rotationRight(index, sibling); // RL 情况：先对兄弟结点进行右旋转。
+                            sibling = sibling.parent;
+                        &#125;
+                        rotationLeft(index, parent); // RR 情况：对父结点进行左旋转。
+                    &#125;
+                    sibling.color = parent.color; // 旋转后中心结点继承父结点的颜色。
+                    sibling.left.color = BLACK;
+                    sibling.right.color = BLACK;
+                    delete = hashtable[index]; // 处理完直接退出循环。
+                &#125;
+            &#125; else &#123; // 兄弟结点是红色。
+                if (parent.left == sibling) &#123;
+                    rotationRight(index, parent);
+                &#125; else &#123;
+                    rotationLeft(index, parent);
+                &#125;
+                parent.color = RED;
+                sibling.color = BLACK;
+            &#125;
+        &#125;
+    &#125;
+
+    // 获取指定结点的兄弟结点。
+    private TreeNode sibling(TreeNode node) &#123;
+        if (node.parent.left == node) &#123;
+            return node.parent.right;
+        &#125;
+        return node.parent.left;
+    &#125;
+
+    // 对指定位置上的指定结点进行左旋转。
+    private void rotationLeft(int index, TreeNode node) &#123;
+        TreeNode newRoot = node.right; // 结点的右子结点会成为这颗子树的根结点。
+        node.right = newRoot.left;
+        if (newRoot.left != null) &#123;
+            newRoot.left.parent = node;
+        &#125;
+        newRoot.left = node;
+        newRoot.parent = node.parent;
+        if (node.parent == null) &#123;
+            hashtable[index] = newRoot;
+        &#125; else if (node.parent.left == node) &#123;
+            node.parent.left = newRoot;
+        &#125; else &#123;
+            node.parent.right = newRoot;
+        &#125;
+        node.parent = newRoot;
+    &#125;
+
+    // 对指定位置上的指定结点进行右旋转。
+    private void rotationRight(int index, TreeNode node) &#123;
+        TreeNode newRoot = node.left; // 结点的左子结点会成为这颗子树的根结点。
+        node.left = newRoot.right;
+        if (newRoot.right != null) &#123;
+            newRoot.right.parent = node;
+        &#125;
+        newRoot.right = node;
+        newRoot.parent = node.parent;
+        if (node.parent == null) &#123;
+            hashtable[index] = newRoot;
+        &#125; else if (node.parent.left == node) &#123;
+            node.parent.left = newRoot;
+        &#125; else &#123;
+            node.parent.right = newRoot;
+        &#125;
+        node.parent = newRoot;
+    &#125;
+
+    // 获取指定结点的颜色。
+    private boolean colorOf(TreeNode node) &#123;
+        return node == null || node.color;
+    &#125;
+
+    // 对结点进行后序遍历。
+    private void postorderTraversal(TreeNode node) &#123;
+        if (node == null) &#123;
+            return;
+        &#125;
+        postorderTraversal(node.left);
+        postorderTraversal(node.right);
+        node.left = node.right = node.parent = null;
+        node.color = RED;
+        int index = node.key &amp; (hashtable.length - 1);
+        insert(index, node);
+    &#125;
+&#125;
+</code></pre>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/06/15/OSTEP/" rel="prev" title="OSTEP">
+      <i class="fa fa-chevron-left"></i> OSTEP
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/06/15/C++%20templates/" rel="next" title="C++ template">
+      C++ template <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HashMap"><span class="nav-number">1.</span> <span class="nav-text">HashMap</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-%E9%A2%98%E7%9B%AE%E5%9C%B0%E5%9D%80"><span class="nav-number">1.1.</span> <span class="nav-text">0. 题目地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E9%93%BE%E5%9C%B0%E5%9D%80%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">1. 链地址法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%BC%80%E6%94%BE%E5%AF%BB%E5%9D%80%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">2. 开放寻址法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-AV%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">1.4.</span> <span class="nav-text">3. AV二叉树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E7%BA%A2%E9%BB%91%E6%A0%91"><span class="nav-number">1.5.</span> <span class="nav-text">4. 红黑树</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">jyyyx</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qaqowoqaq" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qaqowoqaq" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/2407217576@qq.com" title="E-Mail → 2407217576@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">jyyyx</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

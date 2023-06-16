@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"qaqowoqaq.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="OSTEP jyy0x 01 reference官网 教学视频  1.why learn OS1234567891011121314151.解决一个问题的步骤：why-what-how为什么要学习操作系统什么是操作系统怎样学习操作系统2.三个根本问题（1）操作系统服务谁程序&#x3D;状态机课程涉及：多线程Linux应用程序（2）（乘机&#x2F;应用视角）操作系统为程序提供什么服务操作系统&#x3D;对象+API（用来操纵对">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OSTEP">
+<meta property="og:url" content="https://qaqowoqaq.github.io/2023/06/15/OSTEP/index.html">
+<meta property="og:site_name" content="jyyyyyx">
+<meta property="og:description" content="OSTEP jyy0x 01 reference官网 教学视频  1.why learn OS1234567891011121314151.解决一个问题的步骤：why-what-how为什么要学习操作系统什么是操作系统怎样学习操作系统2.三个根本问题（1）操作系统服务谁程序&#x3D;状态机课程涉及：多线程Linux应用程序（2）（乘机&#x2F;应用视角）操作系统为程序提供什么服务操作系统&#x3D;对象+API（用来操纵对">
+<meta property="og:locale">
+<meta property="article:published_time" content="2023-06-15T12:20:57.000Z">
+<meta property="article:modified_time" content="2023-06-16T02:07:04.973Z">
+<meta property="article:author" content="jyyyx">
+<meta property="article:tag" content="cs">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://qaqowoqaq.github.io/2023/06/15/OSTEP/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'cn'
+  };
+</script>
+
+  <title>OSTEP | jyyyyyx</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">jyyyyyx</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">think twice before you do it</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="cn">
+    <link itemprop="mainEntityOfPage" href="https://qaqowoqaq.github.io/2023/06/15/OSTEP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="jyyyx">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jyyyyyx">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          OSTEP
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-06-15 20:20:57" itemprop="dateCreated datePublished" datetime="2023-06-15T20:20:57+08:00">2023-06-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-06-16 10:07:04" itemprop="dateModified" datetime="2023-06-16T10:07:04+08:00">2023-06-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OS/" itemprop="url" rel="index"><span itemprop="name">OS</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="OSTEP-jyy"><a href="#OSTEP-jyy" class="headerlink" title="OSTEP jyy"></a>OSTEP jyy</h1><h2 id="0x-01-reference"><a href="#0x-01-reference" class="headerlink" title="0x 01 reference"></a>0x 01 reference</h2><p><a target="_blank" rel="noopener" href="http://jyywiki.cn/OS/2022/">官网</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV12L4y1379V/?spm_id_from=333.788&vd_source=38033fe3a1f136728a1d6f8acf710b51">教学视频</a></p>
+<hr>
+<h3 id="1-why-learn-OS"><a href="#1-why-learn-OS" class="headerlink" title="1.why learn OS"></a>1.why learn OS</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>解决一个问题的步骤：why-what-how</span><br><span class="line">为什么要学习操作系统</span><br><span class="line">什么是操作系统</span><br><span class="line">怎样学习操作系统</span><br><span class="line"></span><br><span class="line"><span class="number">2.</span>三个根本问题</span><br><span class="line">（<span class="number">1</span>）操作系统服务谁</span><br><span class="line">程序=状态机</span><br><span class="line">课程涉及：多线程Linux应用程序</span><br><span class="line">（<span class="number">2</span>）（乘机/应用视角）操作系统为程序提供什么服务</span><br><span class="line">操作系统=对象+API（用来操纵对象)</span><br><span class="line">课程涉及：POSIX+部分Linux特性</span><br><span class="line">（<span class="number">3</span>）（实现/硬件角度）如何实现操作系统提供的服务</span><br><span class="line">操作系统=C程序</span><br><span class="line">课程涉及：xv6,自制迷你操作系统</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-code"><a href="#2-code" class="headerlink" title="2.code"></a>2.code</h3><table>
+<thead>
+<tr>
+<th>说明</th>
+<th>操作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>查看用户名</td>
+<td>uname -a</td>
+</tr>
+<tr>
+<td>传送ACWing配置</td>
+<td>scp .bashrc .vimrc .tmux.conf：…</td>
+</tr>
+<tr>
+<td>下载tldr(too long dont read)</td>
+<td>sudo apt-get install tldr</td>
+</tr>
+</tbody></table>
+<h3 id="3-wrong-when-install-tldr"><a href="#3-wrong-when-install-tldr" class="headerlink" title="3. wrong when install tldr"></a>3. wrong when install tldr</h3><p>报错，出现用户名 is not in the sudoers file.<br>是因为当前的用户没有加入到sudo的配置文件里<br>解决方案：</p>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>切换到root用户</td>
+<td>su - root</td>
+</tr>
+<tr>
+<td>修改配置文件</td>
+<td>vim &#x2F;etc&#x2F;sudoers</td>
+</tr>
+<tr>
+<td>修改</td>
+<td>增加配置, 在打开的配置文件中，找到ununtu&#x2F;root ALL&#x3D;(ALL) ALL, 在下面添加一行：your_user_name ALL&#x3D;(ALL) ALL，wq!退出，这个文件是只读的，所以需要加！在ubuntu下是最后一行</td>
+</tr>
+</tbody></table>
+<h3 id="4-some-jyy-wonderful-operating"><a href="#4-some-jyy-wonderful-operating" class="headerlink" title="4. some jyy wonderful operating"></a>4. some jyy wonderful operating</h3><table>
+<thead>
+<tr>
+<th>功能</th>
+<th>命令</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>在vim里面编译C&#x2F;C++</td>
+<td>:!gcc&#x2F;g++  %  -o  main (% 获取当前文件名)</td>
+</tr>
+<tr>
+<td>在vim里面编译并运行C++</td>
+<td>:!g++ % -o main &amp;&amp; .&#x2F;main</td>
+</tr>
+<tr>
+<td>wget用于从网络上下载资源，没有指定目录，下载资源回默认为当前目录。wget支持HTTP，HTTPS和FTP协议，可以使用HTTP代理</td>
+<td>wget url</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="0x-02-what-is-Programs-and-Compilers"><a href="#0x-02-what-is-Programs-and-Compilers" class="headerlink" title="0x 02 what is Programs and Compilers"></a>0x 02 what is Programs and Compilers</h2><h3 id="1-notes"><a href="#1-notes" class="headerlink" title="1. notes"></a>1. notes</h3><blockquote>
+<p>程序就是状态机</p>
+<blockquote>
+<p>数字系统是状态机，程序运行在数字系统上，因而程序也应该是状态机。</p>
+<p>在 C 语言中，程序中所有的东西（堆，栈）就是程序的状态，每执行一条一句，程序的状态就会变一下。</p>
+</blockquote>
+<p>include的形式语义就是复制粘贴，它是在预编译阶段处理的，例如我们 <code>#include &lt;tets.c&gt;</code> , 在预处理阶段，会从一个目录找到 include 的 test.c 文件，然后将它的内容复制粘贴到源代码中。</p>
+</blockquote>
+<h3 id="2-more-instruction"><a href="#2-more-instruction" class="headerlink" title="2. more instruction"></a>2. more instruction</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">gdb layout src</span><br><span class="line">asm volatile(“rdrand %rax”);</span><br><span class="line">info proc mappings :查看进程信息</span><br><span class="line">unist: unix standard library</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-bug"><a href="#3-bug" class="headerlink" title="3. bug"></a>3. bug</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> FOE_EACH(_) _(X) _(Y);</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> DEFINE(X) int X, X1;</span></span><br><span class="line"></span><br><span class="line">FOE_EACH(DEFINE)</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    我们的本意是执行:</span></span><br><span class="line"><span class="comment">    int X, X1; int Y, Y1;</span></span><br><span class="line"><span class="comment">    但是我们执行是：</span></span><br><span class="line"><span class="comment">    int X, X1; int Y, X1;</span></span><br><span class="line"><span class="comment">  	这里的X1重复定义了</span></span><br><span class="line"><span class="comment">  	这是因为X1的X并不能被识别，它会被认为是一个字符串</span></span><br><span class="line"><span class="comment">	正确的写法是:</span></span><br><span class="line"><span class="comment">	#define DEFINE(X) int X, X##1</span></span><br><span class="line"><span class="comment">	这样X##1的X就可以被识别</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-Unix’s-philosophy"><a href="#4-Unix’s-philosophy" class="headerlink" title="4. Unix’s philosophy"></a>4. Unix’s philosophy</h3><ul>
+<li>Make each program do one thing well</li>
+<li>Expect the output of every program to become the input to anothe</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/06/15/P-NP/" rel="prev" title="NP probelm">
+      <i class="fa fa-chevron-left"></i> NP probelm
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/06/15/HashMap/" rel="next" title="Hashtable">
+      Hashtable <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#OSTEP-jyy"><span class="nav-number">1.</span> <span class="nav-text">OSTEP jyy</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x-01-reference"><span class="nav-number">1.1.</span> <span class="nav-text">0x 01 reference</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-why-learn-OS"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.why learn OS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-code"><span class="nav-number">1.1.2.</span> <span class="nav-text">2.code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-wrong-when-install-tldr"><span class="nav-number">1.1.3.</span> <span class="nav-text">3. wrong when install tldr</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-some-jyy-wonderful-operating"><span class="nav-number">1.1.4.</span> <span class="nav-text">4. some jyy wonderful operating</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x-02-what-is-Programs-and-Compilers"><span class="nav-number">1.2.</span> <span class="nav-text">0x 02 what is Programs and Compilers</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-notes"><span class="nav-number">1.2.1.</span> <span class="nav-text">1. notes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-more-instruction"><span class="nav-number">1.2.2.</span> <span class="nav-text">2. more instruction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-bug"><span class="nav-number">1.2.3.</span> <span class="nav-text">3. bug</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Unix%E2%80%99s-philosophy"><span class="nav-number">1.2.4.</span> <span class="nav-text">4. Unix’s philosophy</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">jyyyx</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qaqowoqaq" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qaqowoqaq" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/2407217576@qq.com" title="E-Mail → 2407217576@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">jyyyx</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

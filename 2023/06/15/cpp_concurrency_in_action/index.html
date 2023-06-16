@@ -20,29 +20,33 @@
     var CONFIG = {"hostname":"qaqowoqaq.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="jyyyyyx">
-<meta property="og:url" content="https://qaqowoqaq.github.io/page/2/index.html">
+  <meta name="description" content="C++ Concurrency In ActionreferenceBook开源处,感觉翻译很烂 关于异常：  出现异常并不意味着程序本身出了问题，而是程序外部的输入无法让正常业务继续执行，这时应该执行的是异常业务，而异常就是这两种业务转接的桥梁——它提供一种机制，使得程序员在遵守一定规则之下，这个异常业务能够正确完成。 异常安全的三个级别：noexcept,  basic, strong ref">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++ concurrency programming">
+<meta property="og:url" content="https://qaqowoqaq.github.io/2023/06/15/cpp_concurrency_in_action/index.html">
 <meta property="og:site_name" content="jyyyyyx">
+<meta property="og:description" content="C++ Concurrency In ActionreferenceBook开源处,感觉翻译很烂 关于异常：  出现异常并不意味着程序本身出了问题，而是程序外部的输入无法让正常业务继续执行，这时应该执行的是异常业务，而异常就是这两种业务转接的桥梁——它提供一种机制，使得程序员在遵守一定规则之下，这个异常业务能够正确完成。 异常安全的三个级别：noexcept,  basic, strong ref">
 <meta property="og:locale">
+<meta property="article:published_time" content="2023-06-15T12:20:57.000Z">
+<meta property="article:modified_time" content="2023-06-16T02:15:25.502Z">
 <meta property="article:author" content="jyyyx">
 <meta property="article:tag" content="cs">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://qaqowoqaq.github.io/page/2/">
+<link rel="canonical" href="https://qaqowoqaq.github.io/2023/06/15/cpp_concurrency_in_action/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'cn'
   };
 </script>
 
-  <title>jyyyyyx</title>
+  <title>C++ concurrency programming | jyyyyyx</title>
   
 
 
@@ -156,194 +160,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="cn">
-    <link itemprop="mainEntityOfPage" href="https://qaqowoqaq.github.io/2023/06/15/db_kernel_leaarn/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="jyyyx">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jyyyyyx">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/06/15/db_kernel_leaarn/" class="post-title-link" itemprop="url">DataBase kernel learn</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2023-06-15 20:20:57" itemprop="dateCreated datePublished" datetime="2023-06-15T20:20:57+08:00">2023-06-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-06-16 10:06:52" itemprop="dateModified" datetime="2023-06-16T10:06:52+08:00">2023-06-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/DB/" itemprop="url" rel="index"><span itemprop="name">DB</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
 
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="必备"><a href="#必备" class="headerlink" title="必备"></a>必备</h2><ul>
-<li>C&#x2F;C++&#x2F;Java&#x2F;Go&#x2F;Rust</li>
-<li>数据库原理</li>
-<li>操作系统</li>
-<li>算法与数据结构</li>
-<li>分布式原理</li>
-<li>编译原理</li>
-<li>网络编程</li>
-<li>数据库架构原理</li>
-<li>工程化能力</li>
-</ul>
-<h2 id="OLAP"><a href="#OLAP" class="headerlink" title="OLAP"></a>OLAP</h2><ul>
-<li>ClickHouse</li>
-<li>Doris</li>
-</ul>
-<h2 id="分布式数据库"><a href="#分布式数据库" class="headerlink" title="分布式数据库"></a>分布式数据库</h2><ul>
-<li>TiDB</li>
-<li>OceanBase</li>
-<li>CockRoachDB</li>
-</ul>
-<h2 id="云原生数据库"><a href="#云原生数据库" class="headerlink" title="云原生数据库"></a>云原生数据库</h2><ul>
-<li>Aurora</li>
-<li>Snowflake</li>
-<li>PolarDB</li>
-</ul>
-<h3 id="云原生的特点"><a href="#云原生的特点" class="headerlink" title="云原生的特点"></a>云原生的特点</h3><blockquote>
-<p>本质：池化和弹性</p>
-</blockquote>
-<ul>
-<li>计算存储弹性伸缩</li>
-<li>存算分离</li>
-<li>计算节点无状态</li>
-<li>资源调用K8s operator</li>
-</ul>
-<h2 id="国外课程"><a href="#国外课程" class="headerlink" title="国外课程"></a>国外课程</h2><ul>
-<li>MIT6.824 分布式系统</li>
-<li>CMU15-445 数据库系统概论</li>
-<li>CMU15-721 高级数据库设计</li>
-<li>MIT6.S081 操作系统概论</li>
-<li>MIT6.828 高级操作系统设计</li>
-</ul>
-<h2 id="三大顶会"><a href="#三大顶会" class="headerlink" title="三大顶会"></a>三大顶会</h2><ul>
-<li>SIGMOD</li>
-<li>VLDB</li>
-<li>ICDE</li>
-</ul>
-<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><ul>
-<li>存储</li>
-<li>索引</li>
-<li>查询</li>
-<li>优化</li>
-<li>并发控制</li>
-<li>日志和恢复</li>
-<li>分布式</li>
-</ul>
-<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><ul>
-<li>Oracle（#0）</li>
-<li>MySQL（#1）</li>
-<li>PostgreSQL（#2）</li>
-<li>PolarDB（#3）</li>
-<li>TiDB（#3）</li>
-<li>openGauss</li>
-<li>Redis</li>
-<li>ElasticSearch</li>
-<li>MongoDB</li>
-<li>Aurora</li>
-<li>CockRoachDB</li>
-<li>InfluxDB</li>
-</ul>
-<h2 id="优质开源项目"><a href="#优质开源项目" class="headerlink" title="优质开源项目"></a>优质开源项目</h2><ul>
-<li>TiDB</li>
-<li>Doris</li>
-<li>Arrow</li>
-<li>RocksDB</li>
-</ul>
-<h2 id="书籍"><a href="#书籍" class="headerlink" title="书籍"></a>书籍</h2><ul>
-<li>《Database System Concepts》简称DBC</li>
-<li>《Designing Data-Intensive Application》简称DDIA</li>
-<li>《深入理解计算机系统》简称CSAPP</li>
-<li>《Unix网络编程》简称APUE</li>
-</ul>
-<h2 id="学术大佬"><a href="#学术大佬" class="headerlink" title="学术大佬"></a>学术大佬</h2><ul>
-<li>清华姚班AP<a target="_blank" rel="noopener" href="http://people.iiis.tsinghua.edu.cn/~huanchen/index.html">张焕晨</a></li>
-<li>卡耐基梅隆CMU<a target="_blank" rel="noopener" href="http://www.cs.cmu.edu/~pavlo/">Andy Pavlo</a></li>
-<li>慕尼黑工业<a target="_blank" rel="noopener" href="https://scholar.google.com/citations?hl=zh-CN&user=xSDfDpsAAAAJ&view_op=list_works&sortby=pubdate">Thomas Neumann</a></li>
-</ul>
-<h2 id="工程技能"><a href="#工程技能" class="headerlink" title="工程技能"></a>工程技能</h2><ul>
-<li>git 版本管理</li>
-<li>Linux&#x2F;shell 命令</li>
-<li>Flame Graph 火焰图</li>
-<li>gdb 调试</li>
-</ul>
-<h2 id="公司"><a href="#公司" class="headerlink" title="公司"></a>公司</h2><ul>
-<li>大厂（阿里，腾讯，华为）</li>
-<li>四朵金花（达梦，人大金仓，南大通用，神舟通用）</li>
-<li>开源界扛把子：PingCAP</li>
-<li>大牛初创公司<ul>
-<li>Singularity data </li>
-<li>天谋科技</li>
-<li>偶数科技</li>
-<li>四维纵横</li>
-<li>Hashdata</li>
-<li>Starrocks</li>
-<li>selectDB</li>
-<li>zilliz</li>
-<li>OpenPie</li>
-</ul>
-</li>
-</ul>
-<h2 id="参考博客"><a href="#参考博客" class="headerlink" title="参考博客"></a>参考博客</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://www.inlighting.org/archives/how-to-find-a-database-job">沧海月明</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="cn">
@@ -359,10 +179,9 @@
       <meta itemprop="name" content="jyyyyyx">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/06/15/cpp_concurrency_in_action/" class="post-title-link" itemprop="url">C++ concurrency programming</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          C++ concurrency programming
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -401,7 +220,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="C-Concurrency-In-Action"><a href="#C-Concurrency-In-Action" class="headerlink" title="C++ Concurrency In Action"></a>C++ Concurrency In Action</h1><h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><p><a target="_blank" rel="noopener" href="https://www.bookstack.cn/read/Cpp_Concurrency_In_Action/README.md#C++%20Concurrency%20In%20Action">Book开源处,感觉翻译很烂</a></p>
+        <h1 id="C-Concurrency-In-Action"><a href="#C-Concurrency-In-Action" class="headerlink" title="C++ Concurrency In Action"></a>C++ Concurrency In Action</h1><h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><p><a target="_blank" rel="noopener" href="https://www.bookstack.cn/read/Cpp_Concurrency_In_Action/README.md#C++%20Concurrency%20In%20Action">Book开源处,感觉翻译很烂</a></p>
 <p>关于异常：</p>
 <blockquote>
 <p><strong>出现异常并不意味着程序本身出了问题，而是程序外部的输入无法让正常业务继续执行，这时应该执行的是异常业务，而异常就是这两种业务转接的桥梁——它提供一种机制，使得程序员在遵守一定规则之下，这个异常业务能够正确完成。</strong></p>
@@ -1460,171 +1279,34 @@
 
 <h3 id="2-虚假唤醒"><a href="#2-虚假唤醒" class="headerlink" title="2. 虚假唤醒"></a>2. 虚假唤醒</h3><p><font color=blue>TODO</font></p>
 <h1 id="C-thread-pool-1"><a href="#C-thread-pool-1" class="headerlink" title="C++:thread_pool"></a>C++:thread_pool</h1>
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="cn">
-    <link itemprop="mainEntityOfPage" href="https://qaqowoqaq.github.io/2023/06/15/redis/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="jyyyx">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="jyyyyyx">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/06/15/redis/" class="post-title-link" itemprop="url">redis</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2023-06-15 20:14:25" itemprop="dateCreated datePublished" datetime="2023-06-15T20:14:25+08:00">2023-06-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-06-16 09:55:16" itemprop="dateModified" datetime="2023-06-16T09:55:16+08:00">2023-06-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/redis/" itemprop="url" rel="index"><span itemprop="name">redis</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h1><h2 id="0x00-conf"><a href="#0x00-conf" class="headerlink" title="0x00 conf"></a>0x00 conf</h2><h3 id="1-Introduce"><a href="#1-Introduce" class="headerlink" title="1. Introduce"></a>1. Introduce</h3><p><a target="_blank" rel="noopener" href="https://www.runoob.com/redis/redis-tutorial.html">菜鸟教程</a></p>
-<h3 id="2-相关资源"><a href="#2-相关资源" class="headerlink" title="2. 相关资源"></a>2. 相关资源</h3><p><a target="_blank" rel="noopener" href="https://redis.io/">官网</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/redis/redis">SourceCode</a></p>
-<p><a target="_blank" rel="noopener" href="http://doc.redisfans.com/">命令参考</a></p>
-<p><a target="_blank" rel="noopener" href="https://try.redis.io/">在线命令测试</a></p>
-<h3 id="3-在Docker中使用Redis"><a href="#3-在Docker中使用Redis" class="headerlink" title="3. 在Docker中使用Redis"></a>3. <a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1678634">在Docker中使用Redis</a></h3><ol>
-<li><p>连接容器</p>
-</li>
-<li><p>登陆 redis 用户界面：<code>redis-cli</code></p>
-</li>
-</ol>
-<blockquote>
-<p><strong>命令行界面</strong>（英语：<strong>C</strong>ommand-<strong>L</strong>ine <strong>I</strong>nterface，缩写：<strong>CLI</strong>）是在<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2">图形用户界面</a>得到普及之前使用最为广泛的<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2">用户界面</a>，它通常不支持<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E9%BC%A0%E6%A0%87">鼠标</a>，用户通过<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E9%94%AE%E7%9B%98">键盘</a>输入指令，计算机接收到指令后，予以执行。也有人称之为<strong>字符用户界面</strong>（character user interface, CUI）。</p>
-</blockquote>
-<h3 id="4-修改端口号"><a href="#4-修改端口号" class="headerlink" title="4. 修改端口号"></a>4. 修改端口号</h3><p>redis 默认端口号为 <code>6379</code>，而我已经有了一个 docker 容器占用了此端口号，因此我的 mac 本地和 ubuntu 都需要修改端口号。</p>
-<ol>
-<li>修改 conf 文件</li>
-</ol>
-<blockquote>
-<p> <code>cd /etc/redis</code>，先备份 <code>redis.conf</code> 到 <code>redis_back.conf</code> 然后修改 <code>redis.conf</code> 中的 <code>port</code> 为没有被占用的端口号。</p>
-</blockquote>
-<ol start="2">
-<li>重启 redis 使得 conf 文件生效</li>
-</ol>
-<blockquote>
-<p><code>sudo ervice redis-server restart</code></p>
-</blockquote>
-<p>参考</p>
-<blockquote>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/banfushen007/article/details/99316845">ref here</a></p>
-</blockquote>
-<h3 id="5-修改密码"><a href="#5-修改密码" class="headerlink" title="5. 修改密码"></a>5. 修改密码</h3><ol>
-<li>修改 conf 文件</li>
-</ol>
-<blockquote>
-<p>找到 <code>#requirepass foobared</code> 这一行，将注释去掉，修改 <code>foobared</code> 为自己要设置的密码。</p>
-<p>注意 vim 下 <code>:/</code> 搜索，查找下&#x2F;上一个匹配项是 <code>n/N</code>，不是回车。</p>
-</blockquote>
-<ol start="2">
-<li>重启 redis 使 conf 生效</li>
-</ol>
-<blockquote>
-<p><code>sudo service redis-server restart</code></p>
-</blockquote>
-<h3 id="6-redis-cli"><a href="#6-redis-cli" class="headerlink" title="6. redis-cli"></a>6. redis-cli</h3><p><code>-a</code> 参数指定密码</p>
-<p><code>-p</code> 指定端口号</p>
-<p><code>-h</code> 指定 IP 地址</p>
-<p><code>–no-auth-warning</code> 忽略警告信息</p>
-<p>如果你开启了密码，即使不指定密码也能登陆，但无法使用，有两种方式指定密码：</p>
-<ol>
-<li><code>redis-cli -a</code>，通过这种方式指定的密码会显示在 <code>command line</code>，不安全，因为通过 <code>history</code> 可以查看。</li>
-<li>通过 <code>redis-cli</code> 登陆之后，使用 <code>auth</code> 命令输入密码，虽然也会显示，但是他不会记录在 <code>history</code> 中。</li>
-</ol>
-<blockquote>
-<p>Do not use ‘-a’, instead, running <code>auth password</code> explicitly in <code>redis-cli</code> shell. <code>Auth</code> command does not save in Redis-cli’s command history.</p>
-</blockquote>
-<h3 id="7-Ubuntu-下-redis-数据目录"><a href="#7-Ubuntu-下-redis-数据目录" class="headerlink" title="7. Ubuntu 下 redis 数据目录"></a>7. Ubuntu 下 redis 数据目录</h3><p><code>/var/lib/redis</code> 下的 <code>dump.rdb</code> 文件</p>
-<h3 id="8-下标"><a href="#8-下标" class="headerlink" title="8. 下标"></a>8. 下标</h3><p>在 <code>redis</code> 世界中，下标从 0 开始</p>
-<h3 id="9-事务"><a href="#9-事务" class="headerlink" title="9. 事务"></a>9. 事务</h3><p>单个 Redis 命令的执行是原子性的，但 Redis 没有在事务上增加任何维持原子性的机制，所以 Redis 事务的执行并不是原子性的。</p>
-<p>事务可以理解为一个打包的批量执行脚本，但批量指令并非原子化的操作，中间某条指令的失败不会导致前面已做指令的回滚，也不会造成后续的指令不做。</p>
-<h2 id="0x01-noun"><a href="#0x01-noun" class="headerlink" title="0x01 noun"></a>0x01 noun</h2><p>daemonize：守护进程</p>
-<p>blpop: blocking left pop</p>
-<p>brpop: blocking right pop</p>
-<p>sard: set cardinality(势,基数)</p>
-<h2 id="0x02-DataStruct"><a href="#0x02-DataStruct" class="headerlink" title="0x02 DataStruct"></a>0x02 DataStruct</h2><ol>
-<li>string</li>
-<li>hash</li>
-<li>list</li>
-<li>set</li>
-<li>zset(sorted set)</li>
-</ol>
-<h2 id="0x03-command"><a href="#0x03-command" class="headerlink" title="0x03 command"></a>0x03 command</h2><h3 id="1-KEY"><a href="#1-KEY" class="headerlink" title="1. KEY"></a>1. KEY</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">keys pattrn</span><br><span class="line">type key</span><br><span class="line">rename key newname</span><br><span class="line">exist key</span><br><span class="line">del key</span><br><span class="line">dump key</span><br><span class="line">random key</span><br><span class="line">select idx</span><br></pre></td></tr></table></figure>
+        
 
 
-      
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/06/15/redis/" rel="prev" title="redis">
+      <i class="fa fa-chevron-left"></i> redis
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/06/15/db_kernel_leaarn/" rel="next" title="DataBase kernel learn">
+      DataBase kernel learn <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
   
-
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-  </nav>
 
 
 
@@ -1676,6 +1358,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#C-Concurrency-In-Action"><span class="nav-number">1.</span> <span class="nav-text">C++ Concurrency In Action</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#reference"><span class="nav-number">1.1.</span> <span class="nav-text">reference</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#P0-English"><span class="nav-number">1.2.</span> <span class="nav-text">P0 English</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#P1-Hello-concurrency"><span class="nav-number">1.3.</span> <span class="nav-text">P1 Hello, concurrency</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#P2-Thread-management"><span class="nav-number">1.4.</span> <span class="nav-text">P2 Thread management</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-preface"><span class="nav-number">1.4.1.</span> <span class="nav-text">2.1 preface</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-1-generalize"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">2.1.1 generalize</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-2-start-thread"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">2.1.2 start thread</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-2-join-thread"><span class="nav-number">1.4.1.3.</span> <span class="nav-text">2.1.2 join thread</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-3-join-in-special-condition"><span class="nav-number">1.4.1.4.</span> <span class="nav-text">2.1.3 join in special condition</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-4-detach-thread"><span class="nav-number">1.4.1.5.</span> <span class="nav-text">2.1.4 detach thread</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-pass-value"><span class="nav-number">1.4.2.</span> <span class="nav-text">2.2 pass value</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-transfer-possessiveness"><span class="nav-number">1.4.3.</span> <span class="nav-text">2.3 transfer possessiveness</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-1-preface"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">2.3.1 preface</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-2-scoped-thread"><span class="nav-number">1.4.3.2.</span> <span class="nav-text">2.3.2 scoped_thread</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-3-jpthread"><span class="nav-number">1.4.3.3.</span> <span class="nav-text">2.3.3 jpthread</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-determin-count-of-thread"><span class="nav-number">1.4.4.</span> <span class="nav-text">2.4 determin count of thread</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-thread-id"><span class="nav-number">1.4.5.</span> <span class="nav-text">2.5 thread id</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#P3-data-share"><span class="nav-number">1.5.</span> <span class="nav-text">P3 data share</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-problems"><span class="nav-number">1.5.1.</span> <span class="nav-text">3.1 problems</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-1-race-condition"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">3.1.1 race condition</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-2-use-mutex-to-avoid-RC"><span class="nav-number">1.5.1.2.</span> <span class="nav-text">3.1.2 use mutex to avoid RC</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-mutex"><span class="nav-number">1.5.2.</span> <span class="nav-text">3.2 mutex</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-RC-between-interface"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">3.2.1 RC between interface</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-2-deadlock"><span class="nav-number">1.5.2.2.</span> <span class="nav-text">3.2.2 deadlock</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-3-hierarchical-mutex"><span class="nav-number">1.5.2.3.</span> <span class="nav-text">3.2.3 hierarchical_mutex</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-4-std-uniqie-lock"><span class="nav-number">1.5.2.4.</span> <span class="nav-text">3.2.4 std::uniqie_lock</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-5-Passing-of-mutex-ownership-in-different-domains"><span class="nav-number">1.5.2.5.</span> <span class="nav-text">3.2.5  Passing of mutex ownership in different domains</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-5-Lock-Granularity"><span class="nav-number">1.5.2.6.</span> <span class="nav-text">3.2.5 Lock Granularity</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-subsititute-of-shared-data-protect"><span class="nav-number">1.5.3.</span> <span class="nav-text">3.3 subsititute of shared data protect</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-1-protect-initialization-process-of-data"><span class="nav-number">1.5.3.1.</span> <span class="nav-text">3.3.1 protect initialization process of data</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-2-protect-data-struct-which-updatelessly"><span class="nav-number">1.5.3.2.</span> <span class="nav-text">3.3.2 protect data struct which updatelessly</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-3-nested-lock"><span class="nav-number">1.5.3.3.</span> <span class="nav-text">3.3.3 nested lock</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#P4-synchronization"><span class="nav-number">1.6.</span> <span class="nav-text">P4 synchronization</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-wait-event-or-condition"><span class="nav-number">1.6.1.</span> <span class="nav-text">4.1 wait event or condition</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-1-introduce"><span class="nav-number">1.6.1.1.</span> <span class="nav-text">4.1.1 introduce</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-2-condition-variable"><span class="nav-number">1.6.1.2.</span> <span class="nav-text">4.1.2 condition variable</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-3-thread-safety-queue"><span class="nav-number">1.6.1.3.</span> <span class="nav-text">4.1.3 thread safety queue</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-future"><span class="nav-number">1.6.2.</span> <span class="nav-text">4.2 future</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-1-introdece"><span class="nav-number">1.6.2.1.</span> <span class="nav-text">4.2.1 introdece</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-2-background-task-with-return-value-%E2%80%94-async"><span class="nav-number">1.6.2.2.</span> <span class="nav-text">4.2.2 background task with return value — async</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-3-task-and-future"><span class="nav-number">1.6.2.3.</span> <span class="nav-text">4.2.3 task and future</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-4-std-promises"><span class="nav-number">1.6.2.4.</span> <span class="nav-text">4.2.4 std::promises</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-5-exception-and-future"><span class="nav-number">1.6.2.5.</span> <span class="nav-text">4.2.5 exception and future</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-6-waiting-of-multiple-thread"><span class="nav-number">1.6.2.6.</span> <span class="nav-text">4.2.6 waiting of multiple thread</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-time-limited-wait"><span class="nav-number">1.6.3.</span> <span class="nav-text">4.3 time limited wait</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-1-introduce"><span class="nav-number">1.6.3.1.</span> <span class="nav-text">4.3.1 introduce</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-2-clock"><span class="nav-number">1.6.3.2.</span> <span class="nav-text">4.3.2 clock</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-3-ratio"><span class="nav-number">1.6.3.3.</span> <span class="nav-text">4.3.3 ratio</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-4-literal"><span class="nav-number">1.6.3.4.</span> <span class="nav-text">4.3.4 literal</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-5-time-duration"><span class="nav-number">1.6.3.5.</span> <span class="nav-text">4.3.5 time duration</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-4-time-point"><span class="nav-number">1.6.3.6.</span> <span class="nav-text">4.3.4 time point</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-5-use-timeout"><span class="nav-number">1.6.3.7.</span> <span class="nav-text">4.3.5 use timeout</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-simplify-code"><span class="nav-number">1.6.4.</span> <span class="nav-text">4.4 simplify code</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-1-funtional-programming-by-future"><span class="nav-number">1.6.4.1.</span> <span class="nav-text">4.4.1 funtional programming by future</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-2-synchronization-by-message-passing"><span class="nav-number">1.6.4.2.</span> <span class="nav-text">4.4.2 synchronization by message passing</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-5-summary"><span class="nav-number">1.6.5.</span> <span class="nav-text">4.5 summary</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#P5-memory-model-and-atomatic-operation"><span class="nav-number">1.7.</span> <span class="nav-text">P5 memory model and atomatic operation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#P6-data-struct-with-mutex"><span class="nav-number">1.8.</span> <span class="nav-text">P6 data struct with mutex</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-the-significance-of-concurrency-design"><span class="nav-number">1.8.1.</span> <span class="nav-text">6.1 the significance of concurrency design</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#6-1-1-guideline-of-desiging-the-concurrency-DB"><span class="nav-number">1.8.1.1.</span> <span class="nav-text">6.1.1 guideline of desiging the concurrency DB</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-DS-based-on-mutex"><span class="nav-number">1.8.2.</span> <span class="nav-text">6.2 DS based on mutex</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#6-2-1-threadsafe-stack"><span class="nav-number">1.8.2.1.</span> <span class="nav-text">6.2.1 threadsafe stack</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-2-2-threadsafe-queue-%E2%80%93-mutex-amp-amp-condition-variable"><span class="nav-number">1.8.2.2.</span> <span class="nav-text">6.2.2 threadsafe queue – mutex &amp;&amp; condition_variable</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-2-3-threadsaft-queue-small-granularity-amp-amp-condition-variable"><span class="nav-number">1.8.2.3.</span> <span class="nav-text">6.2.3 threadsaft queue -  small granularity &amp;&amp; condition_variable</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-design-more-complex-DS"><span class="nav-number">1.8.3.</span> <span class="nav-text">6.3 design more complex DS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#6-3-1-threadsafe-dictionary"><span class="nav-number">1.8.3.1.</span> <span class="nav-text">6.3.1 threadsafe dictionary</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-3-2-threadsafe-list"><span class="nav-number">1.8.3.2.</span> <span class="nav-text">6.3.2 threadsafe list</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#P7-data-struct-without-mutex"><span class="nav-number">1.9.</span> <span class="nav-text">P7 data struct without mutex</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#P8-concurrency-design"><span class="nav-number">1.10.</span> <span class="nav-text">P8 concurrency design</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#8-1-divide-work-among-threads"><span class="nav-number">1.10.1.</span> <span class="nav-text">8.1 divide work among threads</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#8-1-1-prepare-divide"><span class="nav-number">1.10.1.1.</span> <span class="nav-text">8.1.1 prepare divide</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-1-2-recursion-divide"><span class="nav-number">1.10.1.2.</span> <span class="nav-text">8.1.2 recursion divide</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-1-3-work-divide"><span class="nav-number">1.10.1.3.</span> <span class="nav-text">8.1.3 work divide</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-2-performance-of-concurrency"><span class="nav-number">1.10.2.</span> <span class="nav-text">8.2 performance of concurrency</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#8-2-1-cpu-count"><span class="nav-number">1.10.2.1.</span> <span class="nav-text">8.2.1 cpu count</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-2-2-race-data-and-cache-ping-pong"><span class="nav-number">1.10.2.2.</span> <span class="nav-text">8.2.2 race data and cache ping-pong</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-2-3-false-sharing"><span class="nav-number">1.10.2.3.</span> <span class="nav-text">8.2.3 false sharing</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%80%A6"><span class="nav-number">1.10.2.4.</span> <span class="nav-text">….</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-3-design-data-struct-for-multiple-thread-environment"><span class="nav-number">1.10.3.</span> <span class="nav-text">8.3 design data struct for multiple thread environment</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#P9-advance-thread-management"><span class="nav-number">1.11.</span> <span class="nav-text">P9 advance thread management</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#P10-parallel-algorithm"><span class="nav-number">1.12.</span> <span class="nav-text">P10 parallel algorithm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#P11-test-and-debug-in-multiple-thread-environment"><span class="nav-number">1.13.</span> <span class="nav-text">P11 test and debug in multiple thread environment</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#A-Myheader"><span class="nav-number">1.14.</span> <span class="nav-text">A Myheader</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#B-std-atomic"><span class="nav-number">1.15.</span> <span class="nav-text">B std::atomic</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0-reference"><span class="nav-number">1.15.1.</span> <span class="nav-text">0. reference</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-introduce"><span class="nav-number">1.15.2.</span> <span class="nav-text">1. introduce</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-std-atomic-flag"><span class="nav-number">1.15.3.</span> <span class="nav-text">2. std::atomic_flag</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-thread-pool"><span class="nav-number">2.</span> <span class="nav-text">C:thread_pool</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AB%99%E5%9C%A8%E5%B7%A8%E4%BA%BA%E7%9A%84%E8%82%A9%E8%86%80%E4%B8%8A"><span class="nav-number">2.1.</span> <span class="nav-text">站在巨人的肩膀上</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81-%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="nav-number">2.2.</span> <span class="nav-text">一、 多线程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%A6%82%E5%BF%B5"><span class="nav-number">2.2.1.</span> <span class="nav-text">1. 概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B"><span class="nav-number">2.2.2.</span> <span class="nav-text">2. 创建线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E7%BA%BF%E7%A8%8B%E9%80%80%E5%87%BA"><span class="nav-number">2.2.3.</span> <span class="nav-text">3. 线程退出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E7%BA%BF%E7%A8%8B%E5%9B%9E%E6%94%B6"><span class="nav-number">2.2.4.</span> <span class="nav-text">4. 线程回收</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E7%BA%BF%E7%A8%8B%E5%88%86%E7%A6%BB"><span class="nav-number">2.2.5.</span> <span class="nav-text">5. 线程分离</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5"><span class="nav-number">2.3.</span> <span class="nav-text">二、线程同步</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%90%8C%E6%AD%A5"><span class="nav-number">2.3.1.</span> <span class="nav-text">1. 为什么要同步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%BA%92%E6%96%A5%E9%94%81"><span class="nav-number">2.3.2.</span> <span class="nav-text">2. 互斥锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E8%AF%BB%E5%86%99%E9%94%81"><span class="nav-number">2.3.3.</span> <span class="nav-text">3. 读写锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%9D%A1%E4%BB%B6%E5%8F%98%E9%87%8F"><span class="nav-number">2.3.4.</span> <span class="nav-text">4. 条件变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E4%BF%A1%E5%8F%B7%E9%87%8F"><span class="nav-number">2.3.5.</span> <span class="nav-text">5. 信号量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-timespec"><span class="nav-number">2.3.6.</span> <span class="nav-text">6. timespec</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="nav-number">2.4.</span> <span class="nav-text">三、线程池</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%8E%9F%E7%90%86"><span class="nav-number">2.4.1.</span> <span class="nav-text">1. 原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%99%9A%E5%81%87%E5%94%A4%E9%86%92"><span class="nav-number">2.4.2.</span> <span class="nav-text">2. 虚假唤醒</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-thread-pool-1"><span class="nav-number">3.</span> <span class="nav-text">C++:thread_pool</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

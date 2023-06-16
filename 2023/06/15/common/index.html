@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"qaqowoqaq.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Design Patterns[TODO]0x01. 依赖转置原则ref1例如人吃巧克力： 1234567public interface IChocolates&amp;#123;&amp;#125;public class Oreo implements IChocolates &amp;#123;&amp;#125;public class Dove implements IChocolates &amp;#123;&amp;#125;p">
+<meta property="og:type" content="article">
+<meta property="og:title" content="design parteen &amp; STL">
+<meta property="og:url" content="https://qaqowoqaq.github.io/2023/06/15/common/index.html">
+<meta property="og:site_name" content="jyyyyyx">
+<meta property="og:description" content="Design Patterns[TODO]0x01. 依赖转置原则ref1例如人吃巧克力： 1234567public interface IChocolates&amp;#123;&amp;#125;public class Oreo implements IChocolates &amp;#123;&amp;#125;public class Dove implements IChocolates &amp;#123;&amp;#125;p">
+<meta property="og:locale">
+<meta property="article:published_time" content="2023-06-15T12:20:57.000Z">
+<meta property="article:modified_time" content="2023-06-16T02:06:40.912Z">
+<meta property="article:author" content="jyyyx">
+<meta property="article:tag" content="cs">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://qaqowoqaq.github.io/2023/06/15/common/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'cn'
+  };
+</script>
+
+  <title>design parteen & STL | jyyyyyx</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">jyyyyyx</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">think twice before you do it</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="cn">
+    <link itemprop="mainEntityOfPage" href="https://qaqowoqaq.github.io/2023/06/15/common/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="jyyyx">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jyyyyyx">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          design parteen & STL
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-06-15 20:20:57" itemprop="dateCreated datePublished" datetime="2023-06-15T20:20:57+08:00">2023-06-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-06-16 10:06:40" itemprop="dateModified" datetime="2023-06-16T10:06:40+08:00">2023-06-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/common/" itemprop="url" rel="index"><span itemprop="name">common</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Design-Patterns-TODO"><a href="#Design-Patterns-TODO" class="headerlink" title="Design Patterns[TODO]"></a>Design Patterns[TODO]</h1><h2 id="0x01-依赖转置原则"><a href="#0x01-依赖转置原则" class="headerlink" title="0x01. 依赖转置原则"></a>0x01. 依赖转置原则</h2><h3 id="ref1"><a href="#ref1" class="headerlink" title="ref1"></a>ref1</h3><p>例如人吃巧克力：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> interface IChocolates&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Oreo</span> implements IChocolates &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Dove</span> implements IChocolates &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> interface Person &#123; <span class="function"><span class="type">void</span> <span class="title">eat</span><span class="params">( IChocolates chocolates )</span></span>; &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>上面的例子中人对巧克力产生了依赖，那人吃的行为依赖其实跟巧克力没有关系，在巧克力出现之前就已经存在了，因此吃的动作依赖的接口应该是人本身内部的概念，这个接口的归属权应该属于人，概念应该为可食用的（edible）。因此人对巧克力的依赖关系应该倒置为巧克力对可食用接口的依赖。这样倒置之后对人来说具有了更好的扩展性，不仅可以吃各种不同的巧克力，还可以吃饼干，米饭，鱼肉等等其它任何可吃的东西。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> interface IChocolates extends IEdible&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Oreo</span> implements IChocolates &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Dove</span> implements IChocolates &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> interface Person &#123; <span class="function"><span class="type">void</span> <span class="title">eat</span><span class="params">( IEdible edible )</span></span>; &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="ref2"><a href="#ref2" class="headerlink" title="ref2"></a>ref2</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/li1358159/article/details/123306664">REF</a></p>
+<h3 id="ref3"><a href="#ref3" class="headerlink" title="ref3"></a>ref3</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u012346890/article/details/111034907?spm=1001.2101.3001.6661.1&utm_medium=distribute.pc_relevant_t0.none-task-blog-2~default~CTRLIST~Rate-1-111034907-blog-123306664.pc_relevant_aa2&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2~default~CTRLIST~Rate-1-111034907-blog-123306664.pc_relevant_aa2&utm_relevant_index=1">REF</a></p>
+<p>在例子中，如果我们让上层 dirver 依赖于底层的细节 car，那么就完全错误了。</p>
+<p>我们应该让 diver 依赖于抽象的 CAR，让具体的 car 继承自抽象的 CAR。 </p>
+<h2 id="0x02-装饰模式"><a href="#0x02-装饰模式" class="headerlink" title="0x02 装饰模式"></a>0x02 装饰模式</h2><h3 id="ref1-1"><a href="#ref1-1" class="headerlink" title="ref1"></a>ref1</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40594696/article/details/107611074">原文链接</a></p>
+<p>1.什么是装饰模式</p>
+<p>装饰模式是一种用于替代继承的技术。它无需定义子类却可以给对象动态增加职责，使用对象之间的关联关系取代类之间的继承关系。</p>
+<p>举个栗子：一张照片，不改变照片本身，给它增加一个相框，使他增加防潮的功能，这就是装饰模式。</p>
+<p>装饰模式是一种对象结构型模式，他以对客户透明的方式动态的给一个对象附加上更多的责任，可以在不需要创建更多子类的情况下让对象的功能得以扩展。</p>
+<p>2.装饰模式的结构</p>
+<p>（1）<strong>Component（抽象构件）：</strong>它是具体构件和抽象装饰类的共同父类，声明了在具体构建中实现的业务方法，它的引入可以使客户端以一致的方式处理未被装饰的对象以及装饰之后的对象，实现客户端的透明操作。</p>
+<p>（2）<strong>ConcreteComponent（具体构件）：</strong>它是抽象构件的子类，用于定义具体的构建对象，实现了在抽象构建中声明的方法，装饰类可以给它增加额外的职责。</p>
+<p>（3）<strong>Decorator（抽象装饰类）：</strong>他也是抽象构件的子类，用于给具体构件增加职责，但是具体职责在其子类中实现。它维护一个指向抽象构件对象的引用，通过该引用可以调用装饰之前构件对象的方法，并通过其子类扩展该方法，以达到装饰的目的。</p>
+<p>（4）<strong>ConcreteDecorator（具体装饰类）：</strong>它是抽象装饰类的子类，负责向构件添加新的职责。每一个具体装饰类都定义了一些新的行为，他可以调用在抽象装饰类中定义的方法，并可以增加新的方法用于扩充对象的行为。</p>
+<h3 id="ref2-1"><a href="#ref2-1" class="headerlink" title="ref2"></a>ref2</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zhshulin/article/details/38665187">refreence</a></p>
+<p>####### <a target="_blank" rel="noopener" href="https://blog.csdn.net/NEXUS666/article/details/115672452">更好的 ref – c++ 实例</a></p>
+<h2 id="0x03-代理模式"><a href="#0x03-代理模式" class="headerlink" title="0x03 代理模式"></a>0x03 代理模式</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/starlee/article/details/1647412">引用计数</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u012344185/article/details/114497309">引用计数</a></p>
+<p><a target="_blank" rel="noopener" href="https://time.geekbang.org/column/article/169263">jk时间 – 好文</a></p>
+<h2 id="0x04-工厂模式"><a href="#0x04-工厂模式" class="headerlink" title="0x04 工厂模式"></a>0x04 工厂模式</h2><p>现实生活中，工厂是负责生产产品的；同样在设计模式中，简单工厂模式我们可以理解为<strong>负责生产对象</strong>的一个类，称为“工厂类”。</p>
+<h2 id="0X05-原型模式"><a href="#0X05-原型模式" class="headerlink" title="0X05 原型模式"></a>0X05 原型模式</h2><p>原型模式定义了一个 virtual 拷贝构造函数，C++ 有吗？ C++ 没有虚拷贝构造</p>
+<p><a href="cloud.tencent.com/developer/article/1686487">ref1</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/365222623">ref2</a></p>
+<p><a href="cnblogs.com/jylz/p/10648439.html">ref3</a></p>
+<h1 id="STL-TODO"><a href="#STL-TODO" class="headerlink" title="STL[TODO]"></a>STL[TODO]</h1><h2 id="prelogue"><a href="#prelogue" class="headerlink" title="prelogue"></a>prelogue</h2><h3 id="0x01-导读"><a href="#0x01-导读" class="headerlink" title="0x01 导读"></a>0x01 导读</h3><p>候捷 STL 与 范型编程学习笔记。</p>
+<h3 id="0x02-英语"><a href="#0x02-英语" class="headerlink" title="0x02 英语"></a>0x02 英语</h3><p>identity：同一，本身</p>
+<h3 id="0x03-problem"><a href="#0x03-problem" class="headerlink" title="0x03 problem"></a>0x03 problem</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/nirendao/article/details/115815599?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-115815599-blog-110736211.pc_relevant_3mothn_strategy_and_data_recovery&spm=1001.2101.3001.4242.1&utm_relevant_index=3">1</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/luolaihua2018/article/details/110736211">2</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u013317445/article/details/89680330">3</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/6b526aa481b1">4</a></p>
+<h2 id="一、container"><a href="#一、container" class="headerlink" title="一、container"></a>一、container</h2><p>大家风范：用前置++，–实现后置++，–</p>
+<p>仿函数：函数对象</p>
+<p>关联：有key和value</p>
+<p>array就是把数组包装成一个class</p>
+<p>deque：dai ke</p>
+<p>set, map:红黑树.c++并未规定必须使用红黑树，只不过红黑树效率高，因此各大制定标准库的公司都使用红黑树。</p>
+<p>set的key就是value，value就是key。</p>
+<p>哈希表由一个个桶（bucket）组成，每个桶都是一个链表（link）。现在哈希表大多采用分离链表发（yxc：拉链法）实现。</p>
+<p>头文件有保护机制，多次引入没问题</p>
+<p>vector空间两倍增长(成长)</p>
+<p>（2）vector 有一个机制是这样的，如果新加入一个元素，比如通过push_back()，但是size 大于了capacity，那么vector 就会重新找一块更大的地方再把数据放进去。重新分配的过程：<strong>申请一块新的内存 &gt; 拷贝数据 &gt; 释放原内存</strong>。</p>
+<p> 2、vector扩容怎么拷贝？</p>
+<p>经常问的一个问题，vector怎么扩容？最简单的回答就是先申请内存，再拷贝，最后销毁原来的内存，然后是1.5倍还是2倍，解释一下。</p>
+<p>但是！我看到有人问，怎么拷贝？？？what？？？</p>
+<p>没想到吧，看书还是看漏了。</p>
+<p>拷贝用的是uninitialized_copy，如果拷贝的是POD（标量型别，也就是trivial）调用的是copy（自己去看STL 的copy实现），如果是non-POD使用for循环遍历，调用construct，一个一个的构造，针对char<em>和wchar_t</em>，uninitialized_copy直接用memmove来执行复制行为，更加快。</p>
+<p>版权声明：本文为CSDN博主「m0_60126088」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_60126088/article/details/119616254">https://blog.csdn.net/m0_60126088/article/details/119616254</a></p>
+<p>虽然标准库提供了sort函数，但是一些函数也提供了自己的sort，当容器存在自己的sort的时候，优先使用容器自己的，它自己的肯定更好，不然它提供这个函数干嘛。</p>
+<p>forward_list 和 list 提供了自己的 sort</p>
+<p>forward_list使用头插法。因此只能在链表头插入元素。</p>
+<p><a target="_blank" rel="noopener" href="http://c.biancheng.net/view/6908.html">deque容器底层实现</a></p>
+<p>queue 和 stack 由于元素进出的顺序是死的（固定的），因此他们没有迭代器，如果有迭代器的话，我们就有可能通过迭代器改变元素进出的顺序，这是不合理的。</p>
+<p>set，map底层是红黑树（自平衡二叉查找树）</p>
+<p>multimap不可以用下标做 iterator</p>
+<p>hashtable 的 bucket 比 元素个数还有要多是合理的，因为元素中间会空出很多 bucket。事实上，bucket的个数肯定比元素个数多，否则的话 bucket 就要重新扩充变为原来的（大约）两倍。（经验法则，避免 bucket 的长度太长）（以空间换时间）</p>
+<p>map的底部就是一个 pair</p>
+<p>map，set 会丢掉重复元素</p>
+<p>从测试结果我们可以看出，使用insert()插入元素的方式并不能覆盖掉相同key的值；而使用[]方式则可以覆盖掉之前的值。为什么会出现这样的结果呢？</p>
+<p>原因分析<br>我们可以通过源码来找原因，在map的源码中，insert方法是这样定义的：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">pair&lt;iterator,<span class="type">bool</span>&gt; <span class="title">insert</span><span class="params">(<span class="type">const</span> value_type&amp; __x)</span> </span></span><br><span class="line"><span class="function">    </span>&#123; <span class="keyword">return</span> _M_t.<span class="built_in">insert_unique</span>(__x); &#125;</span><br></pre></td></tr></table></figure>
+
+<p>他调用_M_t.insert_unique(_x)方法，该方法会首先遍历整个集合，判断是否存在相同的key，如果存在则直接返回，放弃插入操作。如果不存在才进行插入。<br>而[]方式是通过重载[]操作符来实现的，它直接进行插入或覆盖</p>
+<blockquote>
+<p> 今天调试程序，弄得有点纠结。无意间，和一帮同事讨论起一个问题：进程结束操作系统会回收new的内存吗？在自己的印象中，一直固执地认为，在使用C++操作分配对象内存后，如果程序员自己不用相应的delete操作回收的话，这块从堆内存是一直存在。在讨论中，有同事提醒说，在进程结束后，new操作的内存会被回收。但也只是结论，也说不出具体理由。</p>
+<pre><code>没关系，何不google一下，一查下去，答案已是清晰：
+
+“内存泄漏不是系统无法回收那片内存，而是你自己的应用程序无法使用那片内存。当你程序结束时，你所有分配的内存自动都被系统回收，不存在泄漏问题。但是在你程序的生命期内，如果你分配的内存都不回收，你将很快没内存使用。”再用自己的一句话来概括的话就是：操作系统本身就有内存管理的职责，一般而言，用malloc、new操作分配的内存，在进程结束后，操作系统是会自己的回收的。但某些系统态的资源，用特殊的系统API申请的内存就不一定了，比如：linux中的shmget申请的共享内存，就与进程结束无关了。
+
+ 经过这一番查找，不禁自己为自己汗颜了一把，之前还以为自己对内存管理理解较深，现在才明白：在没有认真深入地钻研过操作系统内核原理之前，所有对内存管理的理解还是浮在表面上的。这次讨论也分外地提醒自己，自己知识的盲区还有许多，还要不断的踏踏实实地努力学习啊！
+</code></pre>
+<hr>
+<p> 版权声明：本文为CSDN博主「stanjiang2010」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br> 原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/stanjiang2010/article/details/5386647">https://blog.csdn.net/stanjiang2010/article/details/5386647</a></p>
+</blockquote>
+<p>不建议使用分配器。</p>
+<p>oop企图将data和method关联在一起</p>
+<p>gp企图将data和method分离开</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/y1196645376/article/details/52938474">容器内存分配</a></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">test1</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">test2</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">test3</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">test4</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">test</span> </span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="keyword">typedef</span> pair&lt;<span class="type">int</span>,<span class="type">int</span>&gt; PII;</span><br><span class="line">        PII p;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">complex</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="built_in">complex</span>(T _val) : <span class="built_in">val</span>(_val) &#123;&#125;</span><br><span class="line">        T val;</span><br><span class="line">        <span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</span></span><br><span class="line"><span class="function">        <span class="keyword">friend</span> complex&lt;U&gt; <span class="title">cal</span><span class="params">(complex&lt;U&gt; a, complex&lt;U&gt; b)</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function">complex&lt;T&gt; <span class="title">cal</span><span class="params">(complex&lt;T&gt; a, complex &lt;T&gt; b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">complex&lt;T&gt; <span class="title">c</span><span class="params">(a.val + b.val)</span></span>;</span><br><span class="line">    <span class="keyword">return</span> c;</span><br><span class="line">    <span class="comment">// return complex(a.val + b.val);</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">test3</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*====================================================*/</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">test3</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    test::PII p = &#123;<span class="number">1</span>,<span class="number">2</span>&#125;;</span><br><span class="line">    cout &lt;&lt; p.first &lt;&lt; <span class="string">&#x27; &#x27;</span> &lt;&lt; p.second &lt;&lt; endl;</span><br><span class="line">    <span class="function">complex&lt;<span class="type">int</span>&gt; <span class="title">a</span><span class="params">(<span class="number">1</span>)</span></span>;</span><br><span class="line">    <span class="function">complex&lt;<span class="type">int</span>&gt; <span class="title">b</span><span class="params">(<span class="number">2</span>)</span></span>;</span><br><span class="line">    cout &lt;&lt; a.val &lt;&lt; <span class="string">&#x27; &#x27;</span> &lt;&lt; b.val &lt;&lt; endl;</span><br><span class="line">    complex&lt;<span class="type">int</span>&gt; c = <span class="built_in">cal</span>(a, b);</span><br><span class="line">    cout &lt;&lt; c.val &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">test1</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; vec;</span><br><span class="line">    cout &lt;&lt; vec.<span class="built_in">capacity</span>() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; &amp;vec &lt;&lt; endl;</span><br><span class="line">    vec.<span class="built_in">push_back</span>(<span class="number">1</span>);   <span class="comment">// add -&gt; cap:1</span></span><br><span class="line">    cout &lt;&lt; vec.<span class="built_in">capacity</span>() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; &amp;vec &lt;&lt; endl;</span><br><span class="line">    vec.<span class="built_in">push_back</span>(<span class="number">1</span>);   <span class="comment">// add -&gt; cap:2</span></span><br><span class="line">    cout &lt;&lt; vec.<span class="built_in">capacity</span>() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; &amp;(vec[<span class="number">1</span>]) &lt;&lt; endl;</span><br><span class="line">    vec.<span class="built_in">push_back</span>(<span class="number">1</span>);   <span class="comment">// add -&gt; cap:4</span></span><br><span class="line">    cout &lt;&lt; vec.<span class="built_in">capacity</span>() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; &amp;(vec[<span class="number">1</span>]) &lt;&lt; endl;</span><br><span class="line">    vec.<span class="built_in">push_back</span>(<span class="number">1</span>);</span><br><span class="line">    vec.<span class="built_in">push_back</span>(<span class="number">1</span>);   <span class="comment">// add -&gt; cap:8</span></span><br><span class="line">    cout &lt;&lt; vec.<span class="built_in">capacity</span>() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; &amp;(vec[<span class="number">1</span>]) &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">1000000</span>; i ++ )   vec.<span class="built_in">push_back</span>(i);</span><br><span class="line">    cout &lt;&lt; &amp;vec &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">test2</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    map&lt;<span class="type">int</span>,<span class="type">int</span>&gt; m;</span><br><span class="line">    m.<span class="built_in">insert</span>(&#123;<span class="number">1</span>,<span class="number">1</span>&#125;);</span><br><span class="line">    cout &lt;&lt; m[<span class="number">1</span>] &lt;&lt; endl;</span><br><span class="line">    m.<span class="built_in">insert</span>(&#123;<span class="number">1</span>,<span class="number">2</span>&#125;);</span><br><span class="line">    cout &lt;&lt; m[<span class="number">1</span>] &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; m.<span class="built_in">size</span>() &lt;&lt; endl;</span><br><span class="line">    m[<span class="number">2</span>] = <span class="number">3</span>;</span><br><span class="line">    cout &lt;&lt; m.<span class="built_in">size</span>() &lt;&lt; endl;</span><br><span class="line">    m[<span class="number">1</span>] = <span class="number">3</span>;</span><br><span class="line">    cout &lt;&lt; m[<span class="number">1</span>] &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="二、alloactor"><a href="#二、alloactor" class="headerlink" title="二、alloactor"></a>二、alloactor</h2><p>容器的幕后英雄。</p>
+<p>所有的分配和释放动作最后都会跑到 malloc 和 free 去。</p>
+<p>分配器的 allocate 和 deallocate 最终都是使用 malloc 和 free</p>
+<p>直接使用分配器在释放内存的时候，还需要指出需要释放的内存大小。</p>
+<p>因此并不建议直接使用分配器分配内存。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span>* <span class="keyword">operator</span> <span class="title">new</span><span class="params">(<span class="type">size_t</span> size, string s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;s: &quot;</span> &lt;&lt; s &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">malloc</span>(size);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> *x = <span class="built_in">new</span>(<span class="string">&quot;hello&quot;</span>) <span class="type">int</span>;</span><br><span class="line">    <span class="keyword">auto</span> a = <span class="built_in">allocator</span>&lt;<span class="type">int</span>&gt;();   </span><br><span class="line">    <span class="type">int</span> *p = a.<span class="built_in">allocate</span>(<span class="number">512</span>, <span class="number">0</span>);</span><br><span class="line">    a.<span class="built_in">deallocate</span>(p, <span class="number">512</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="三、list"><a href="#三、list" class="headerlink" title="三、list"></a>三、list</h2><p>不允许 x++ ++</p>
+<p>允许 ++ ++ x</p>
+<p>所有的容器区间都是前闭后开</p>
+<p>在链表中为了保证这个要求，必须要设置一个虚节点（为空）</p>
+<h2 id="四、vector"><a href="#四、vector" class="headerlink" title="四、vector"></a>四、vector</h2><p>内存的扩充一般不会是原地扩充，它会在另一个地方找内存。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;<span class="type">int</span>&gt; vec;</span><br><span class="line">cout &lt;&lt; <span class="built_in">sizeof</span>(vec) &lt;&lt; endl; <span class="comment">// 24 = 3 * 8(point)</span></span><br></pre></td></tr></table></figure>
+
+<p>public 继承表示一种 is-a 的关系</p>
+<h2 id="五、array"><a href="#五、array" class="headerlink" title="五、array"></a>五、array</h2><p>array 内部的数据就是一个真的数组，它没有tors</p>
+<h2 id="六、deque"><a href="#六、deque" class="headerlink" title="六、deque"></a>六、deque</h2><p>号称自己拥有连续空间^^</p>
+<p>连续是假象，分段是事实。</p>
+<p>deque（dei ke）其实是分段连续的。deque的数据由许多个段组成，段与段之间不连续，每个段内连续。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    deque&lt;<span class="type">int</span>&gt; q;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10000</span>; i ++ )    q.<span class="built_in">push_back</span>(i);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10000</span> - <span class="number">1</span>; i ++ )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> *x = &amp;q[i + <span class="number">1</span>], *y = &amp;q[i];</span><br><span class="line">        <span class="keyword">if</span>(y - x != <span class="number">-1</span>)  </span><br><span class="line">            cout &lt;&lt; y - x &lt;&lt; <span class="string">&#x27; &#x27;</span> &lt;&lt; &amp;q[i] &lt;&lt; <span class="string">&#x27; &#x27;</span> &lt;&lt; &amp;q[i + <span class="number">1</span>] &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 测试结果</span></span><br><span class="line"><span class="number">-5</span> <span class="number">0x19d4e6c</span> <span class="number">0x19d4e80</span></span><br><span class="line"><span class="number">-5</span> <span class="number">0x19d507c</span> <span class="number">0x19d5090</span></span><br><span class="line"><span class="number">-5</span> <span class="number">0x19d528c</span> <span class="number">0x19d52a0</span></span><br><span class="line"><span class="number">-5</span> <span class="number">0x19d549c</span> <span class="number">0x19d54b0</span></span><br><span class="line"><span class="number">-45</span> <span class="number">0x19d56ac</span> <span class="number">0x19d5760</span></span><br></pre></td></tr></table></figure>
+
+<p>deque 的底部实现是一个 vector（称为 map ？？ ），vector 的每个元素是一个指针，每个指针指向一个缓冲区 buffer。</p>
+<p>其迭代器是一个类</p>
+<ol>
+<li>first：当前所在 buffer 的起点</li>
+<li>last：当前所在 buffer 的重点</li>
+<li>node：处于（deque控制中心） 的那个段</li>
+<li>cur：处于当前 buffer 的位置</li>
+</ol>
+<p>first 和 last 相当于两个哨兵[first，last) 前闭后开</p>
+<p>迭代器在移动的过程中，每次移动都需要判断是否移动到了当前段的末尾，来决定是否需要调到下一个段。（效率低！每次都需要判断一下）</p>
+<p>和 vector 一样，deque 也是 2 倍增长的，因此它也有 capacity，事实上标准库并未规定容器的增长细节，但是大多数实现都使用了 2 倍增长。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">1000010</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    deque&lt;<span class="type">int</span>&gt; q;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; vec;</span><br><span class="line">    <span class="type">clock_t</span> start;</span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">    start = <span class="built_in">clock</span>();</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; i ++ )    q.<span class="built_in">push_back</span>(i);</span><br><span class="line">    cout &lt;&lt; (<span class="built_in">clock</span>() - start) &lt;&lt; endl;</span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">    start = <span class="built_in">clock</span>();</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; i ++ )    vec.<span class="built_in">push_back</span>(i);</span><br><span class="line">    cout &lt;&lt; (<span class="built_in">clock</span>() - start) &lt;&lt; endl;</span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">    start = <span class="built_in">clock</span>();</span><br><span class="line">    <span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; i ++ )    sum = q[i];</span><br><span class="line">    cout &lt;&lt; (<span class="built_in">clock</span>() - start) &lt;&lt; endl;</span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">    start = <span class="built_in">clock</span>();</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; i ++ )    sum = vec[i];</span><br><span class="line">    cout &lt;&lt; (<span class="built_in">clock</span>() - start) &lt;&lt; endl;</span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">15584</span></span><br><span class="line"><span class="number">16521</span></span><br><span class="line"><span class="number">79156</span></span><br><span class="line"><span class="number">3326</span></span><br></pre></td></tr></table></figure>
+
+<p>deque 在拓展的时候 copy 方式是 copy 到新空间的中间位置，以方便前面和后面的扩充。</p>
+<h2 id="八、queue"><a href="#八、queue" class="headerlink" title="八、queue"></a>八、queue</h2><p><code>queue&lt;int,  vector&lt;int&gt;&gt; q;</code> 可以通过编译</p>
+<p>但是当我们使用 <code>q.pop();</code> 编译器报错</p>
+<p>这说明编译器对模板不会进行一个全面的、完整的检测</p>
+<p>只有当你用到时才会进行检测</p>
+<h2 id="九、stack"><a href="#九、stack" class="headerlink" title="九、stack"></a>九、stack</h2><h2 id="十、Red-Black-tree"><a href="#十、Red-Black-tree" class="headerlink" title="十、Red-Black tree"></a>十、Red-Black tree</h2><p>关联式容器甚至可以看做一个小型数据库</p>
+<p>关联式容器的两个重要的底层数据结构：红黑树和哈希表</p>
+<p>红黑树就是一颗高度平衡的二叉搜索树</p>
+<p>红黑树提供遍历操作和迭代器</p>
+<p>编译器会将 size &#x3D; 0 的class 的size 设为 1</p>
+<p>同 link，rb_tree 也设置了一个空节点实现前闭后开区间。</p>
+<p>红黑树有【元素自动排序】特性</p>
+<p>value[key,date]</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">test1</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    set&lt;<span class="type">int</span>, greater&lt;<span class="type">int</span>&gt;&gt; s; </span><br><span class="line">    s.<span class="built_in">insert</span>(<span class="number">1</span>);</span><br><span class="line">    s.<span class="built_in">insert</span>(<span class="number">2</span>);</span><br><span class="line">    s.<span class="built_in">insert</span>(<span class="number">3</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;x : s)    cout &lt;&lt; x &lt;&lt; endl;</span><br><span class="line">    set&lt;<span class="type">int</span>&gt;::value_type x = <span class="number">23.2332</span>;</span><br><span class="line">    set&lt;<span class="type">int</span>&gt;::key_type y = <span class="number">2.3232</span>;</span><br><span class="line">    cout &lt;&lt; x &lt;&lt; <span class="string">&#x27; &#x27;</span> &lt;&lt; y &lt;&lt; endl; </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"> <span class="function"><span class="type">void</span> <span class="title">test2</span><span class="params">()</span></span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">    map&lt;<span class="type">int</span>,<span class="type">int</span>&gt;::value_type p = &#123;<span class="number">1</span>,<span class="number">2</span>&#125;;</span><br><span class="line">    map&lt;<span class="type">int</span>,<span class="type">int</span>&gt;::value_type::first_type px = <span class="number">1</span>;</span><br><span class="line">    map&lt;<span class="type">int</span>,<span class="type">int</span>&gt;::value_type::second_type py = <span class="number">2</span>;</span><br><span class="line">    map&lt;<span class="type">char</span>,<span class="type">char</span>&gt;::key_type c1 = <span class="number">65</span>;</span><br><span class="line">    map&lt;<span class="type">char</span>,<span class="type">char</span>&gt;::mapped_type c2 = <span class="number">97</span>;</span><br><span class="line">    </span><br><span class="line">    cout &lt;&lt; p.first &lt;&lt; <span class="string">&#x27; &#x27;</span> &lt;&lt; p.second &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; px &lt;&lt; <span class="string">&#x27; &#x27;</span> &lt;&lt; py &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; c1 &lt;&lt; <span class="string">&#x27; &#x27;</span> &lt;&lt; c2 &lt;&lt; endl;</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="built_in">test1</span>();</span><br><span class="line">    <span class="built_in">test2</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="十一、hashtable"><a href="#十一、hashtable" class="headerlink" title="十一、hashtable"></a>十一、hashtable</h2><p>hashtable 中有很多经验值</p>
+<p>经验法则：如果某个 bucket 的元素个数比 bucket 的个数还要多，就要两倍扩充 bucket 并重新放入元素（rehashing）。</p>
+<h2 id="十二、-STL-六大部件"><a href="#十二、-STL-六大部件" class="headerlink" title="十二、 STL 六大部件"></a>十二、 STL 六大部件</h2><p>容器替我们处理了内存分配上的问题，我们只管往容器里面添加删除元素，至于数据在内存上是怎样分配的，容器替我们解决了。</p>
+<p>容器本身并不能处理内存，它是通过分配器来实现内存的分配与回收的。</p>
+<p>算法通过迭代器操作容器。</p>
+<ol>
+<li>容器</li>
+<li>分配器</li>
+<li>算法</li>
+<li>迭代器</li>
+<li>仿函数</li>
+<li>适配器</li>
+</ol>
+<h2 id="十三、新添加待处理"><a href="#十三、新添加待处理" class="headerlink" title="十三、新添加待处理"></a>十三、新添加待处理</h2><p>ctor 有必要添加</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Base</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// Base() &#123;</span></span><br><span class="line">        </span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    <span class="built_in">Base</span>(<span class="type">int</span> val) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;Base&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Derived</span> : <span class="keyword">public</span> Base &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Derived</span>(<span class="type">int</span> val) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;Derived&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">Derived <span class="title">a</span><span class="params">(<span class="number">1</span>)</span></span>;   <span class="comment">// wrong</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>Explicitly specializer:全特化</p>
+<hr>
+<p>模版别名。</p>
+<p>typedef 不可以使用参数</p>
+<p>define 虽然可以指定参数，但是必须用（）包围起来，而我们希望使用 &lt;&gt; 包围起来。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> v(T) vector<span class="string">&lt;T&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">using</span> vec = vector&lt;pair&lt;T,T&gt;&gt;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">v</span>(<span class="type">int</span>) a; <span class="comment">// 很奇怪</span></span><br><span class="line">    vec&lt;pair&lt;<span class="type">double</span>,<span class="type">double</span>&gt;&gt; v;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iterator&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Container&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">test</span><span class="params">(Container c)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 从容器中取出迭代器</span></span><br><span class="line">    <span class="comment">// 每个迭代器都有一个 value_type</span></span><br><span class="line">    <span class="comment">// 通过 value_type 就可以得到容器元素的类型</span></span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">typename</span> iterator_traits&lt;<span class="keyword">typename</span> Container::iterator&gt;::value_type Valtype;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i ++ )</span><br><span class="line">        c.<span class="built_in">insert</span>(c.<span class="built_in">end</span>(), i);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;x : c)    cout &lt;&lt; x &lt;&lt; <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T,</span><br><span class="line">            <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</span><br><span class="line">            <span class="keyword">typename</span> Container</span><br><span class="line">        &gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">C</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    Container&lt;T&gt; c;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">C</span>() &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i ++ )</span><br><span class="line">        c.<span class="built_in">insert</span>(c.<span class="built_in">end</span>(), i);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;x : c)    cout &lt;&lt; x &lt;&lt; <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">test</span>(<span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;());</span><br><span class="line">    C&lt;<span class="type">int</span>, vector&gt; c;</span><br><span class="line">    <span class="comment">// C&lt;int, list&gt; c;</span></span><br><span class="line">    <span class="comment">// C&lt;int, queue&gt; c;</span></span><br><span class="line">    <span class="comment">// C&lt;int, map&gt; c;</span></span><br><span class="line">    <span class="comment">// C&lt;int, set&gt; c;</span></span><br><span class="line">    <span class="comment">// C&lt;int, stack&gt; c;</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/409436201">模板模板参数</a></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Foo</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    T a, b;</span><br><span class="line">    <span class="built_in">Foo</span>() &#123;</span><br><span class="line">        a = <span class="number">1</span>, b = <span class="number">2</span>;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;Ctor for Foo::&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    ~<span class="built_in">Foo</span>() &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;Dtor for Foo::&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T,</span><br><span class="line">            <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</span><br><span class="line">            <span class="keyword">class</span> <span class="title class_">Container</span></span><br><span class="line">        &gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">C</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    Foo&lt;T&gt; c;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">C</span>() &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;Ctor for C&quot;</span> &lt;&lt; endl;    </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;begin\n&quot;</span>;</span><br><span class="line">        cout &lt;&lt; c.a &lt;&lt; <span class="string">&#x27; &#x27;</span> &lt;&lt; c.b &lt;&lt; endl;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;end\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T,</span><br><span class="line">            <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</span><br><span class="line">            <span class="keyword">class</span> <span class="title class_">Container</span></span><br><span class="line">        &gt;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(Container&lt;T&gt; c)</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// f(Foo&lt;int&gt;());</span></span><br><span class="line">    C&lt;<span class="type">int</span>, Foo&gt; c;</span><br><span class="line">    c.<span class="built_in">show</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<hr>
+<p>stl</p>
+<p>traits：特征，特性</p>
+<p>萃取机。</p>
+<p>你丢给他某个东西，它可以萃取出这个东西的某些特征。</p>
+<p>associated type:</p>
+<blockquote>
+<p>category</p>
+<p>Value_type</p>
+<p>Difference_type</p>
+<p>pointer</p>
+<p>reference</p>
+</blockquote>
+<p>中间件 for：</p>
+<blockquote>
+<p>class iterator</p>
+<p>Native pointer</p>
+<p>const native pointer</p>
+</blockquote>
+<p>算法所需要的信息：主要是迭代器的是怎么移动的（方向，大小）</p>
+<p>虽然虽然可以直接向迭代器询问，迭代器也可以直接回答，但是如果迭代器不是一个 class，即迭代器如果是一个 native point 的话，他就没有 associate type（5个type），也就无法回答。这时候我们需要一个中间层（trait）来回答算法的询问。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iterator_traits&lt;iterator&gt;::type;</span><br></pre></td></tr></table></figure>
+
+<p>Bidirectional:双向</p>
+<hr>
+<p>typeid</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;typeinfo&gt;</span><br><span class="line">typeid(type).name();</span><br></pre></td></tr></table></figure>
+
+<p>给 typeid 传入一个 type（typeid(type)），他就会生成一个对象，这个对象有 name() 方法。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unordered_set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;typeinfo&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">out_tag</span><span class="params">(random_access_iterator_tag)</span> </span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;random_access_iterator&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">out_tag</span><span class="params">(bidirectional_iterator_tag)</span> </span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;bidrectional_iterator_tag&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">out_tag</span><span class="params">(forward_iterator_tag)</span> </span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;forward_iterator_tag&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Itr&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">out</span><span class="params">(Itr iter)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">typename</span> iterator_traits&lt;Itr&gt;::iterator_category category_obj;</span><br><span class="line">    <span class="built_in">out_tag</span>(category_obj);</span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">typename</span> iterator_traits&lt;Itr&gt;::iterator_category category_type;</span><br><span class="line">    <span class="built_in">out_tag</span>(<span class="built_in">category_type</span>());</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;typeid: &quot;</span> &lt;&lt; <span class="built_in">typeid</span>(category_obj).<span class="built_in">name</span>() &lt;&lt; endl &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;typeid: &quot;</span> &lt;&lt; <span class="built_in">typeid</span>(<span class="built_in">category_type</span>()).<span class="built_in">name</span>() &lt;&lt; endl &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">out</span>(vector&lt;<span class="type">int</span>&gt;::<span class="built_in">iterator</span>());</span><br><span class="line">    <span class="built_in">out</span>(set&lt;<span class="type">int</span>&gt;::<span class="built_in">iterator</span>());</span><br><span class="line">    <span class="built_in">out</span>(multiset&lt;<span class="type">int</span>&gt;::<span class="built_in">iterator</span>());</span><br><span class="line">    <span class="built_in">out</span>(unordered_set&lt;<span class="type">int</span>&gt;::<span class="built_in">iterator</span>());</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Base</span> &#123;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Derived</span> : <span class="keyword">public</span> Base&#123;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(Base b)</span> </span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;you call f()&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">g</span><span class="params">(Base *b)</span> </span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;you call g(*)&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Derived d;</span><br><span class="line">    <span class="built_in">f</span>(d);</span><br><span class="line">    Base *b = <span class="keyword">new</span> <span class="built_in">Derived</span>();</span><br><span class="line">    <span class="built_in">g</span>(b);</span><br><span class="line">    Derived *pd = <span class="keyword">new</span> <span class="built_in">Derived</span>();</span><br><span class="line">    <span class="built_in">g</span>(pd);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 继承表示 is-a 关系</span></span><br><span class="line"><span class="comment">因此可以把子类放到父类里面(子类 is-a 父类)*/</span></span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<p>11 个算法</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Myclass</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">int</span> val;</span><br><span class="line">    <span class="built_in">Myclass</span>() &#123; cout &lt;&lt; <span class="string">&quot;Myclass&quot;</span> &lt;&lt; endl; val = <span class="number">0</span>; &#125;</span><br><span class="line">    ~<span class="built_in">Myclass</span>() &#123; cout &lt;&lt; <span class="string">&quot;Dtor for Myclass&quot;</span> &lt;&lt; endl; &#125;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a &lt; b; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Mystruct</span> &#123;</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a &lt; b;</span><br><span class="line">    &#125;  </span><br><span class="line">&#125;Mstruct;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">cmp</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a &lt; b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; a&#123;<span class="number">1</span>&#125;;</span><br><span class="line">    <span class="built_in">sort</span>(a.<span class="built_in">begin</span>(), a.<span class="built_in">end</span>(), <span class="built_in">Myclass</span>()); <span class="comment">// 生成一个临时对象，在 main 函数结束之前便结束</span></span><br><span class="line">    <span class="built_in">sort</span>(a.<span class="built_in">begin</span>(), a.<span class="built_in">end</span>(), Mstruct);</span><br><span class="line">    <span class="built_in">sort</span>(a.<span class="built_in">begin</span>(), a.<span class="built_in">end</span>(), <span class="built_in">minus</span>&lt;<span class="type">int</span>&gt;());</span><br><span class="line">    <span class="built_in">sort</span>(a.<span class="built_in">begin</span>(), a.<span class="built_in">end</span>(), cmp);</span><br><span class="line">    </span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;main-end&quot;</span> &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iterator&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 1. accumulate 累计(不是累加，因为还可以指定其他运算方式)</span></span><br><span class="line"><span class="comment">** 指定运算操作时，如果我们传入的是一个函数，那么直接传递函数名即可，</span></span><br><span class="line"><span class="comment">    因为此时相当于我们传入了一个函数指针，函数指针可以类似于函数直接调用。</span></span><br><span class="line"><span class="comment">    例如：void (*ptr)() = &amp;func;</span></span><br><span class="line"><span class="comment">          ptr(); // &lt;==&gt; func();</span></span><br><span class="line"><span class="comment">    但如果我们传入的是一个重载了 () 的函数对象</span></span><br><span class="line"><span class="comment">    我们就必须穿入一个对象，因为只有 class 被实例化为一个 object，</span></span><br><span class="line"><span class="comment">    才能调用它自己的成员函数。</span></span><br><span class="line"><span class="comment">    例如： struct Myclass &#123;</span></span><br><span class="line"><span class="comment">                int operator(int x, int y) &#123; return x + y; &#125;</span></span><br><span class="line"><span class="comment">            &#125;myobj;</span></span><br><span class="line"><span class="comment">            class Myclass &#123; </span></span><br><span class="line"><span class="comment">                int operator(int x, int y) &#123; return x + y; &#125;</span></span><br><span class="line"><span class="comment">            &#125;;</span></span><br><span class="line"><span class="comment">            直接传入 myobj 或者 myclass() 即可，</span></span><br><span class="line"><span class="comment">    如果成员函数是一个模版，还需要指定 &lt;type&gt;</span></span><br><span class="line"><span class="comment">    例如：标准库的 minus</span></span><br><span class="line"><span class="comment">            此时我们传入 minus&lt;int&gt;(); // 传入一个临时对象</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*  2. for_each()</span></span><br><span class="line"><span class="comment">**  例如：</span></span><br><span class="line"><span class="comment">        void func(int x)&#123; cout &lt;&lt; x &lt;&lt; &#x27; &#x27;; &#125;</span></span><br><span class="line"><span class="comment">        vector&lt;int&gt; a&#123;1, 2, 3&#125;;   </span></span><br><span class="line"><span class="comment">        for_each(a.begin(), a.end(), func); // 1 2 3</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*  3. replace, replace_if, replace_copy</span></span><br><span class="line"><span class="comment">        count, count_if</span></span><br><span class="line"><span class="comment">    ``` c++</span></span><br><span class="line"><span class="comment">    vector&lt;int&gt; a&#123;1, 4, 3, 4, 5&#125;;</span></span><br><span class="line"><span class="comment">    replace(a.begin(), a.end(), 4, 10);</span></span><br><span class="line"><span class="comment">    for(auto &amp;x : a)    cout &lt;&lt; x &lt;&lt; &#x27; &#x27;;   </span></span><br><span class="line"><span class="comment">    cout &lt;&lt; endl;   // 1 10 3 10 5 </span></span><br><span class="line"><span class="comment">    replace_if(a.begin(), a.end(), bind2nd(less&lt;int&gt;(), 10), 0);</span></span><br><span class="line"><span class="comment">    for(auto &amp;x : a)    cout &lt;&lt; x &lt;&lt; &#x27; &#x27;;   </span></span><br><span class="line"><span class="comment">    cout &lt;&lt; endl;   // 0 10 0 10 0 </span></span><br><span class="line"><span class="comment">    vector&lt;int&gt; b(a.size()); // 必须为 b 分配空间，copy 不会分配空间</span></span><br><span class="line"><span class="comment">    replace_copy(a.begin(), a.end(), b.begin(), 0, 1);</span></span><br><span class="line"><span class="comment">    for(auto &amp;x : b)    cout &lt;&lt; x &lt;&lt; &#x27; &#x27;;   </span></span><br><span class="line"><span class="comment">    cout &lt;&lt; endl;   // 1 10 1 10 1 </span></span><br><span class="line"><span class="comment">    vector&lt;int&gt; c; // 或者使用 back_inserter</span></span><br><span class="line"><span class="comment">    replace_copy(a.begin(), a.end(), back_inserter(c), 0, 1);</span></span><br><span class="line"><span class="comment">    for(auto &amp;x : c)    cout &lt;&lt; x &lt;&lt; &#x27; &#x27;;   </span></span><br><span class="line"><span class="comment">    cout &lt;&lt; endl;   // 1 10 1 10 1 </span></span><br><span class="line"><span class="comment">#include &lt;iostream&gt;</span></span><br><span class="line"><span class="comment">#include &lt;cstring&gt;</span></span><br><span class="line"><span class="comment">#include &lt;algorithm&gt;</span></span><br><span class="line"><span class="comment">#include &lt;vector&gt;</span></span><br><span class="line"><span class="comment">#include &lt;iterator&gt;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">using namespace std;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">/* 1. accumulate 累计(不是累加，因为还可以指定其他运算方式)</span></span><br><span class="line"><span class="comment">** 指定运算操作时，如果我们传入的是一个函数，那么直接传递函数名即可，</span></span><br><span class="line"><span class="comment">    因为此时相当于我们传入了一个函数指针，函数指针可以类似于函数直接调用。</span></span><br><span class="line"><span class="comment">    例如：void (*ptr)() = &amp;func;</span></span><br><span class="line"><span class="comment">          ptr(); // &lt;==&gt; func();</span></span><br><span class="line"><span class="comment">    但如果我们传入的是一个重载了 () 的函数对象</span></span><br><span class="line"><span class="comment">    我们就必须穿入一个对象，因为只有 class 被实例化为一个 object，</span></span><br><span class="line"><span class="comment">    才能调用它自己的成员函数。</span></span><br><span class="line"><span class="comment">    例如： struct Myclass &#123;</span></span><br><span class="line"><span class="comment">                int operator(int x, int y) &#123; return x + y; &#125;</span></span><br><span class="line"><span class="comment">            &#125;myobj;</span></span><br><span class="line"><span class="comment">            class Myclass &#123; </span></span><br><span class="line"><span class="comment">                int operator(int x, int y) &#123; return x + y; &#125;</span></span><br><span class="line"><span class="comment">            &#125;;</span></span><br><span class="line"><span class="comment">            直接传入 myobj 或者 myclass() 即可，</span></span><br><span class="line"><span class="comment">    如果成员函数是一个模版，还需要指定 &lt;type&gt;</span></span><br><span class="line"><span class="comment">    例如：标准库的 minus</span></span><br><span class="line"><span class="comment">            此时我们传入 minus&lt;int&gt;(); // 传入一个临时对象</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*  2. for_each()</span></span><br><span class="line"><span class="comment">**  例如：</span></span><br><span class="line"><span class="comment">        void func(int x)&#123; cout &lt;&lt; x &lt;&lt; &#x27; &#x27;; &#125;</span></span><br><span class="line"><span class="comment">        vector&lt;int&gt; a&#123;1, 2, 3&#125;;   </span></span><br><span class="line"><span class="comment">        for_each(a.begin(), a.end(), func); // 1 2 3</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*  3. replace, replace_if, replace_copy</span></span><br><span class="line"><span class="comment">        count, count_if</span></span><br><span class="line"><span class="comment">     c++</span></span><br><span class="line"><span class="comment">    vector&lt;int&gt; a&#123;1, 4, 3, 4, 5&#125;;</span></span><br><span class="line"><span class="comment">    replace(a.begin(), a.end(), 4, 10);</span></span><br><span class="line"><span class="comment">    for(auto &amp;x : a)    cout &lt;&lt; x &lt;&lt; &#x27; &#x27;;   </span></span><br><span class="line"><span class="comment">    cout &lt;&lt; endl;   // 1 10 3 10 5 </span></span><br><span class="line"><span class="comment">    replace_if(a.begin(), a.end(), bind2nd(less&lt;int&gt;(), 10), 0);</span></span><br><span class="line"><span class="comment">    for(auto &amp;x : a)    cout &lt;&lt; x &lt;&lt; &#x27; &#x27;;   </span></span><br><span class="line"><span class="comment">    cout &lt;&lt; endl;   // 0 10 0 10 0 </span></span><br><span class="line"><span class="comment">    vector&lt;int&gt; b(a.size()); // 必须为 b 分配空间，copy 不会分配空间</span></span><br><span class="line"><span class="comment">    replace_copy(a.begin(), a.end(), b.begin(), 0, 1);</span></span><br><span class="line"><span class="comment">    for(auto &amp;x : b)    cout &lt;&lt; x &lt;&lt; &#x27; &#x27;;   </span></span><br><span class="line"><span class="comment">    cout &lt;&lt; endl;   // 1 10 1 10 1 </span></span><br><span class="line"><span class="comment">    vector&lt;int&gt; c; // 或者使用 back_inserter</span></span><br><span class="line"><span class="comment">    replace_copy(a.begin(), a.end(), back_inserter(c), 0, 1);</span></span><br><span class="line"><span class="comment">    for(auto &amp;x : c)    cout &lt;&lt; x &lt;&lt; &#x27; &#x27;;   </span></span><br><span class="line"><span class="comment">    cout &lt;&lt; endl;   // 1 10 1 10 1 </span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    如果函数名后面跟着 _if 表示你要传入一个“条件”</span></span><br><span class="line"><span class="comment">    如果函数名后面跟着 _copy 表示你要传入一个 iterator 用来放置 copy 的元素</span></span><br><span class="line"><span class="comment">        并且作用结果不会作用到原迭代器身上，只是 copy 到新迭代器</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*  4. find &amp; find_if -- 线性时间复杂度 */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*  5. sort</span></span><br><span class="line"><span class="comment">**   不要拿我们写的 cmp 用于 sort list 和 forward_list</span></span><br><span class="line"><span class="comment">      因为他们的地址不是连续的。而我们写的 cmp 是连续的</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*  6. binary_search</span></span><br><span class="line"><span class="comment">**   二分查找的前提是有序</span></span><br><span class="line"><span class="comment">     binary_search() 调用了 lower_bound()</span></span><br><span class="line"><span class="comment">     然后对 lower_bound 找到的位置进行比较</span></span><br><span class="line"><span class="comment">        first = lower_bound(first, val);</span></span><br><span class="line"><span class="comment">        return (first != last) &amp;&amp; (val &gt;= *first);</span></span><br><span class="line"><span class="comment">        // 我感觉后面的 val&gt;=*first 不太必要的，因为如果你 first != last 的话</span></span><br><span class="line"><span class="comment">            // 就说明你肯定找到了，既然找到了，那就应该是合理的！</span></span><br><span class="line"><span class="comment">                // 很奇怪，不知道为啥</span></span><br><span class="line"><span class="comment">     关于 lower/upper_bound</span></span><br><span class="line"><span class="comment">     候捷的解释：</span></span><br><span class="line"><span class="comment">        lower_bound 查找的是 在不改变原数据顺序的前提下</span></span><br><span class="line"><span class="comment">            插入元素可以放入的 最低点</span></span><br><span class="line"><span class="comment">        upper_bound 查找的是 在不改变原数据顺序的前提下</span></span><br><span class="line"><span class="comment">            插入元素可以放入的 最高点</span></span><br><span class="line"><span class="comment">     网络上一般的解释为：</span></span><br><span class="line"><span class="comment">        lower 查找 &lt;=</span></span><br><span class="line"><span class="comment">        upper 查找 &gt;</span></span><br><span class="line"><span class="comment">     其实一样，只不过说法不同</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; a&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>&#125;;</span><br><span class="line">    <span class="keyword">auto</span> begin = <span class="built_in">lower_bound</span>(a.<span class="built_in">begin</span>(), a.<span class="built_in">end</span>(),<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">auto</span> end = <span class="built_in">upper_bound</span>(a.<span class="built_in">begin</span>(), a.<span class="built_in">end</span>(),<span class="number">1</span>);</span><br><span class="line">    cout &lt;&lt; *begin &lt;&lt; <span class="string">&#x27; &#x27;</span> &lt;&lt; *end &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>adapter</p>
+<ol>
+<li>容器适配器</li>
+<li>迭代器适配器</li>
+<li>仿函数适配器</li>
+</ol>
+<p>一个对象 A 想拥有对象 B  的功能，有两种方式：</p>
+<ol>
+<li>inherit，继承</li>
+<li>composition，复合</li>
+</ol>
+<p>adapter 是复合</p>
+<p>typedef:</p>
+<p>binary_function</p>
+<ol>
+<li>first_arguement_type</li>
+<li>second_arguement_type</li>
+<li>result_type</li>
+</ol>
+<p>unary_function</p>
+<ol>
+<li>Argument_type</li>
+<li>Result_type</li>
+</ol>
+<p><code>typename + ()</code> 产生临时对象</p>
+<p>借用函数模版的实参推导来完成类模板的实参。</p>
+<blockquote>
+<p>如果我们直接写类模板的实参 <code>&lt;&gt;</code>，我们可能不太好写出类型，我们可以添加一层中间层（函数模板），让函数模板来完成实参类型的推导，然后将类型传给类模板。</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;functional&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">test1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; a&#123;<span class="number">1</span>,<span class="number">10</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;;</span><br><span class="line">    <span class="keyword">typename</span> less&lt;<span class="type">int</span>&gt;::second_argument_type x = <span class="number">1</span> &lt;&lt; <span class="number">31</span>;</span><br><span class="line">    <span class="keyword">typename</span> less&lt;<span class="type">int</span>&gt;::first_argument_type y = <span class="number">1</span> &lt;&lt; <span class="number">31</span>;</span><br><span class="line">    <span class="keyword">typename</span> less&lt;<span class="type">int</span>&gt;::result_type z = <span class="number">1</span> &lt;&lt; <span class="number">31</span>;</span><br><span class="line">    cout &lt;&lt; x &lt;&lt; <span class="string">&#x27; &#x27;</span> &lt;&lt; y &lt;&lt; <span class="string">&#x27; &#x27;</span> &lt;&lt; z &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> p = <span class="built_in">bind2nd</span>(<span class="built_in">less</span>&lt;<span class="type">int</span>&gt;(), <span class="number">10</span>);</span><br><span class="line">    binder2nd&lt;less&lt;<span class="type">int</span>&gt;&gt; b2;  <span class="comment">// wrong，已经弃用</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Argument 并无参数的意思，之所以被拿来做(参数、变量)的意思是历史原因。</p>
+<hr>
+<p>bind</p>
+<p>取代了 bind2nd, binder2nd, bind1st, binder1st</p>
+<p>没写构造函数也可以用 <code>&#123;&#125;</code> 初始化</p>
+<p>placeholoders</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;functional&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">test1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; a&#123;<span class="number">1</span>,<span class="number">10</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;;</span><br><span class="line">    <span class="keyword">typename</span> less&lt;<span class="type">int</span>&gt;::second_argument_type x = <span class="number">1</span> &lt;&lt; <span class="number">31</span>;</span><br><span class="line">    <span class="keyword">typename</span> less&lt;<span class="type">int</span>&gt;::first_argument_type y = <span class="number">1</span> &lt;&lt; <span class="number">31</span>;</span><br><span class="line">    <span class="keyword">typename</span> less&lt;<span class="type">int</span>&gt;::result_type z = <span class="number">1</span> &lt;&lt; <span class="number">31</span>;</span><br><span class="line">    cout &lt;&lt; x &lt;&lt; <span class="string">&#x27; &#x27;</span> &lt;&lt; y &lt;&lt; <span class="string">&#x27; &#x27;</span> &lt;&lt; z &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">test2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> p = <span class="built_in">bind2nd</span>(<span class="built_in">less</span>&lt;<span class="type">int</span>&gt;(), <span class="number">10</span>);</span><br><span class="line">    <span class="comment">// binder2nd&lt;less&lt;int&gt;&gt; b2;  // wrong，已经弃用</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">double</span> <span class="title">my_divide</span><span class="params">(<span class="type">double</span> a, <span class="type">double</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a / b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">test3</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// _1, _2。。 在 std::placeholders 里面</span></span><br><span class="line">    <span class="comment">// auto f1 = bind(my_divide, std::placeholders::_1, std::placeholders::_2);</span></span><br><span class="line">    <span class="comment">// cout &lt;&lt; f1(10, 2) &lt;&lt; endl;   // 5</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// auto f2 = bind(my_divide, std::placeholders::_2, std::placeholders::_1);</span></span><br><span class="line">    <span class="comment">// cout &lt;&lt; f2(10, 2) &lt;&lt; endl;   // 0.5</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// auto f3 = bind(my_divide, 10, std::placeholders::_1);   // 这里 10 被绑定到第一个参数</span></span><br><span class="line">    <span class="comment">// cout &lt;&lt; f3(200) &lt;&lt; endl;  // 10 / 200</span></span><br><span class="line">   </span><br><span class="line">    <span class="comment">// auto f5 = bind(my_divide, std::placeholders::_1, 10);</span></span><br><span class="line">    <span class="comment">// cout &lt;&lt; f5(100) &lt;&lt; endl;    // 10</span></span><br><span class="line">   </span><br><span class="line">   </span><br><span class="line">    <span class="comment">/*  --  */</span></span><br><span class="line">    <span class="comment">/* 占位符_n会选择 [我们传入的] 第n个参数 */</span></span><br><span class="line">    <span class="keyword">auto</span> f4 = <span class="built_in">bind</span>(my_divide, <span class="number">10</span>, std::placeholders::_2);   <span class="comment">// 这里 10 被绑定到第一个参数</span></span><br><span class="line">    cout &lt;&lt; <span class="built_in">f4</span>(<span class="number">3</span>,<span class="number">2</span>) &lt;&lt; endl;   <span class="comment">// 3.33，选择我们传入的第二个参数2</span></span><br><span class="line">   </span><br><span class="line">    <span class="keyword">auto</span> f6 = <span class="built_in">bind</span>(my_divide, std::placeholders::_2, <span class="number">10</span>);</span><br><span class="line">    cout &lt;&lt; <span class="built_in">f6</span>(<span class="number">3</span>,<span class="number">5</span>) &lt;&lt; endl;    <span class="comment">// 5 / 10，选择我们传入的第二个参数5</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">test3</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/06/15/RedBlackTree/" rel="prev" title="RBTree">
+      <i class="fa fa-chevron-left"></i> RBTree
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/06/15/C/" rel="next" title="C note">
+      C note <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Design-Patterns-TODO"><span class="nav-number">1.</span> <span class="nav-text">Design Patterns[TODO]</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-%E4%BE%9D%E8%B5%96%E8%BD%AC%E7%BD%AE%E5%8E%9F%E5%88%99"><span class="nav-number">1.1.</span> <span class="nav-text">0x01. 依赖转置原则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ref1"><span class="nav-number">1.1.1.</span> <span class="nav-text">ref1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ref2"><span class="nav-number">1.1.2.</span> <span class="nav-text">ref2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ref3"><span class="nav-number">1.1.3.</span> <span class="nav-text">ref3</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">0x02 装饰模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ref1-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">ref1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ref2-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">ref2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.3.</span> <span class="nav-text">0x03 代理模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x04-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.4.</span> <span class="nav-text">0x04 工厂模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0X05-%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.5.</span> <span class="nav-text">0X05 原型模式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#STL-TODO"><span class="nav-number">2.</span> <span class="nav-text">STL[TODO]</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#prelogue"><span class="nav-number">2.1.</span> <span class="nav-text">prelogue</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01-%E5%AF%BC%E8%AF%BB"><span class="nav-number">2.1.1.</span> <span class="nav-text">0x01 导读</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-%E8%8B%B1%E8%AF%AD"><span class="nav-number">2.1.2.</span> <span class="nav-text">0x02 英语</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x03-problem"><span class="nav-number">2.1.3.</span> <span class="nav-text">0x03 problem</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81container"><span class="nav-number">2.2.</span> <span class="nav-text">一、container</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81alloactor"><span class="nav-number">2.3.</span> <span class="nav-text">二、alloactor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81list"><span class="nav-number">2.4.</span> <span class="nav-text">三、list</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81vector"><span class="nav-number">2.5.</span> <span class="nav-text">四、vector</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81array"><span class="nav-number">2.6.</span> <span class="nav-text">五、array</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81deque"><span class="nav-number">2.7.</span> <span class="nav-text">六、deque</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AB%E3%80%81queue"><span class="nav-number">2.8.</span> <span class="nav-text">八、queue</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%9D%E3%80%81stack"><span class="nav-number">2.9.</span> <span class="nav-text">九、stack</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E3%80%81Red-Black-tree"><span class="nav-number">2.10.</span> <span class="nav-text">十、Red-Black tree</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E4%B8%80%E3%80%81hashtable"><span class="nav-number">2.11.</span> <span class="nav-text">十一、hashtable</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E4%BA%8C%E3%80%81-STL-%E5%85%AD%E5%A4%A7%E9%83%A8%E4%BB%B6"><span class="nav-number">2.12.</span> <span class="nav-text">十二、 STL 六大部件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E4%B8%89%E3%80%81%E6%96%B0%E6%B7%BB%E5%8A%A0%E5%BE%85%E5%A4%84%E7%90%86"><span class="nav-number">2.13.</span> <span class="nav-text">十三、新添加待处理</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">jyyyx</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qaqowoqaq" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qaqowoqaq" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/2407217576@qq.com" title="E-Mail → 2407217576@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">jyyyx</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
